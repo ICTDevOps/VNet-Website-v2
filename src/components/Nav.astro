@@ -1,11 +1,22 @@
 ---
-const links = [
-  { href: "#plateformes", label: "Plateformes" },
-  { href: "#approche", label: "Approche" },
-  { href: "#", label: "Cas clients" },
-  { href: "#", label: "Formations" },
-  { href: "#", label: "Journal" },
+const { current } = Astro.props as { current?: string };
+const isHome = Astro.url.pathname === "/";
+
+type Service = { href: string; label: string; key: string };
+const services: Service[] = [
+  { href: "/services/cloud-azure", label: "Cloud Azure", key: "cloud-azure" },
+  { href: "/services/microsoft-365", label: "Microsoft 365", key: "microsoft-365" },
+  { href: "/services/intelligence-artificielle", label: "IA & Copilot", key: "ia" },
+  { href: "/services/formations", label: "Formations", key: "formations" },
 ];
+
+const links = [
+  { href: isHome ? "#plateformes" : "/#plateformes", label: "Plateformes", key: "plateformes", services },
+  { href: isHome ? "#approche" : "/#approche", label: "Approche", key: "approche" },
+  { href: "/a-propos", label: "À propos", key: "a-propos" },
+];
+
+const isServiceCurrent = services.some((s) => s.key === current);
 ---
 
 <nav>
@@ -50,11 +61,33 @@ const links = [
     <span class="logo-text">vnet<span>.</span>consult</span>
   </a>
   <ul>
-    {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    {links.map((l) => (
+      <li class={l.services ? "has-menu" : ""}>
+        <a
+          href={l.href}
+          class={(current === l.key || (l.services && isServiceCurrent)) ? "active" : ""}
+        >
+          {l.label}
+          {l.services && <span class="menu-caret">↓</span>}
+        </a>
+        {l.services && (
+          <div class="submenu">
+            {l.services.map((s) => (
+              <a
+                href={s.href}
+                class={current === s.key ? "sub-active" : ""}
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </li>
+    ))}
   </ul>
   <div class="nav-right">
     <span class="lang"><span class="active">FR</span> · EN</span>
-    <a href="#contact" class="nav-cta">Démarrer un projet →</a>
+    <a href="/contact" class="nav-cta">Démarrer un projet →</a>
   </div>
 </nav>
 
@@ -100,6 +133,59 @@ const links = [
     gap: 36px;
     list-style: none;
   }
+  nav li {
+    position: relative;
+  }
+  .menu-caret {
+    font-size: 9px;
+    color: var(--fg-faint);
+    margin-left: 4px;
+    display: inline-block;
+    transform: translateY(-1px);
+  }
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    margin-top: 14px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    z-index: 12;
+  }
+  nav li.has-menu:hover .submenu,
+  nav li.has-menu:focus-within .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .submenu a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--fg-dim);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .submenu a:hover {
+    background: var(--bg-3);
+    color: var(--fg);
+  }
+  .submenu a.sub-active {
+    color: var(--cyan);
+    background: rgba(76, 201, 240, 0.06);
+  }
   nav a {
     color: var(--fg-dim);
     text-decoration: none;
@@ -109,6 +195,16 @@ const links = [
   }
   nav a:hover {
     color: var(--fg);
+  }
+  nav a.active {
+    color: var(--fg);
+  }
+  nav a.active::after {
+    content: "";
+    display: block;
+    margin-top: 4px;
+    height: 1px;
+    background: var(--grad);
   }
   .nav-right {
     display: flex;

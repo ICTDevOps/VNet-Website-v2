@@ -1,0 +1,74 @@
+---
+interface Props {
+  items: string[];
+  columns?: 1 | 2;
+}
+
+const { items, columns = 2 } = Astro.props;
+---
+
+<ul class={`checklist cols-${columns}`}>
+  {
+    items.map((item) => (
+      <li>
+        <span class="check">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M3.5 8.2 6.5 11.2 12.5 5"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <span set:html={item}></span>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 32px;
+  }
+  .checklist li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--fg);
+    line-height: 1.55;
+  }
+  .check {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(76, 201, 240, 0.12);
+    border: 1px solid rgba(76, 201, 240, 0.3);
+    color: var(--cyan);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .check svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  @media (max-width: 700px) {
+    .cols-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

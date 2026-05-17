@@ -1,0 +1,67 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  align?: "left" | "center";
+  id?: string;
+}
+
+const { eyebrow, title, subtitle, align = "left", id } = Astro.props;
+---
+
+<section id={id} class={`page-section ${align}`}>
+  {eyebrow && <div class="section-eyebrow">{eyebrow}</div>}
+  {title && <h2 class="section-title" set:html={title}></h2>}
+  {subtitle && <p class="section-sub">{subtitle}</p>}
+  <slot />
+</section>
+
+<style>
+  .page-section {
+    position: relative;
+    z-index: 5;
+    max-width: 1280px;
+    margin: 100px auto 0;
+    padding: 0 48px;
+  }
+  .page-section.center {
+    text-align: center;
+  }
+  .page-section.center :global(.section-title),
+  .page-section.center :global(.section-sub) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 760px;
+    line-height: 1.1;
+  }
+  .section-sub {
+    color: var(--fg-dim);
+    font-size: 17px;
+    max-width: 700px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .page-section {
+      padding: 0 24px;
+      margin-top: 72px;
+    }
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+import PageShell from "../layouts/PageShell.astro";
+import PageHero from "../components/PageHero.astro";
+import PageSection from "../components/PageSection.astro";
+---
+
+<PageShell
+  title="Mentions légales — VNET Consult"
+  description="Mentions légales et informations de l'éditeur du site vnetconsult.be."
+>
+  <PageHero
+    eyebrow="// mentions légales"
+    title="Mentions légales"
+    subtitle="Informations légales relatives à l'éditeur du site et à son hébergement, conformément aux obligations en vigueur en Belgique."
+  />
+
+  <PageSection eyebrow="// éditeur" title="Éditeur du site">
+    <div class="legal-block">
+      <p><strong>Raison sociale :</strong> VNET Consult</p>
+      <p><strong>Forme juridique :</strong> SRL (à confirmer)</p>
+      <p><strong>Siège social :</strong> Rue Hecq 51, 7160 Chapelle-Lez-Herlaimont, Belgique</p>
+      <p><strong>Numéro d'entreprise (BCE) :</strong> à compléter</p>
+      <p><strong>TVA :</strong> à compléter</p>
+      <p><strong>Représentant légal :</strong> Olivier Malfroidt, fondateur</p>
+      <p><strong>Email :</strong> <a href="mailto:contact@vnetconsult.be">contact@vnetconsult.be</a></p>
+      <p><strong>Téléphone :</strong> <a href="tel:+32473332474">+32 473 33 24 74</a></p>
+    </div>
+  </PageSection>
+
+  <PageSection eyebrow="// hébergement" title="Hébergement">
+    <div class="legal-block">
+      <p>Le présent site est hébergé sur Azure Static Web Apps, opéré par Microsoft Corporation.</p>
+      <p>One Microsoft Way, Redmond, WA 98052-6399, États-Unis.</p>
+      <p>
+        Les données techniques de connexion peuvent transiter par des nœuds de diffusion edge
+        situés dans l'Espace Économique Européen.
+      </p>
+    </div>
+  </PageSection>
+
+  <PageSection eyebrow="// données personnelles" title="Données personnelles &amp; cookies">
+    <div class="legal-block">
+      <p>
+        Le site vnetconsult.be ne dépose pas de cookie de tracking publicitaire et n'utilise pas
+        d'outil d'analyse intrusif. Les seules données collectées sont celles que vous nous
+        transmettez volontairement (via le formulaire de contact ou par email).
+      </p>
+      <p>
+        Ces données sont utilisées exclusivement pour répondre à votre demande et ne sont
+        partagées avec aucun tiers. Conformément au RGPD, vous disposez d'un droit d'accès,
+        de rectification et de suppression sur ces données. Pour exercer ces droits, contactez
+        <a href="mailto:contact@vnetconsult.be">contact@vnetconsult.be</a>.
+      </p>
+    </div>
+  </PageSection>
+
+  <PageSection eyebrow="// propriété intellectuelle" title="Propriété intellectuelle">
+    <div class="legal-block">
+      <p>
+        L'ensemble des contenus, textes, illustrations, code, design et identité visuelle du site
+        vnetconsult.be sont la propriété exclusive de VNET Consult ou de leurs ayants droit
+        respectifs. Toute reproduction, même partielle, sans autorisation écrite préalable est
+        interdite.
+      </p>
+    </div>
+  </PageSection>
+
+  <PageSection eyebrow="// loi applicable" title="Loi applicable">
+    <div class="legal-block">
+      <p>
+        Les présentes mentions légales sont régies par le droit belge. En cas de litige, et à
+        défaut de résolution amiable, les tribunaux compétents seront ceux du ressort du siège
+        social de VNET Consult.
+      </p>
+    </div>
+  </PageSection>
+</PageShell>
+
+<style>
+  .legal-block {
+    max-width: 760px;
+    color: var(--fg-dim);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .legal-block p {
+    margin-bottom: 12px;
+  }
+  .legal-block strong {
+    color: var(--fg);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .legal-block a {
+    color: var(--cyan);
+    text-decoration: none;
+  }
+  .legal-block a:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,283 @@
+---
+import PageShell from "../../layouts/PageShell.astro";
+import PageHero from "../../components/PageHero.astro";
+import PageSection from "../../components/PageSection.astro";
+import Checklist from "../../components/Checklist.astro";
+import StackChips from "../../components/StackChips.astro";
+import CTA from "../../components/CTA.astro";
+import AzureHubSpoke from "../../components/illustrations/AzureHubSpoke.astro";
+
+const deliverables = [
+  "Évaluation Azure Migrate de l'existant on-premise (workloads, dépendances, coûts cibles)",
+  "Landing zones CAF / Enterprise-scale en IaC Terraform",
+  "Réseau hub-spoke, Azure Firewall, Bastion, Private Endpoints",
+  "Identité Entra ID, SSO, accès conditionnel, secrets via Key Vault",
+  "Stratégie de migration : lift-and-shift, replatform ou refactor selon le workload",
+  "Environnements hybrides : ExpressRoute, Site-to-Site VPN, Azure Arc, AD Hybrid",
+  "Sauvegarde &amp; PRA (Recovery Services, Azure Site Recovery)",
+  "Observabilité : Azure Monitor, Log Analytics, alertes qui réveillent uniquement quand c'est utile",
+  "Optimisation des coûts (FinOps, reservations, spot, rightsizing)",
+  "Sécurité : Defender for Cloud, Sentinel, baseline CIS",
+];
+
+const onPremItems = [
+  "Audit de l'infrastructure existante (serveurs, stockage, réseau, virtualisation)",
+  "Virtualisation Hyper-V ou VMware, consolidation et capacity planning",
+  "LAN/WAN, segmentation, pare-feu, accès distants",
+  "Sauvegarde locale et plan de reprise après sinistre",
+  "Modernisation progressive : ce qui reste on-prem, ce qui part dans le cloud, ce qui devient hybride",
+  "Maintenance et support après mise en production",
+];
+
+const stack = [
+  "Azure",
+  "Terraform",
+  "Bicep",
+  "GitHub Actions",
+  "Entra ID",
+  "Key Vault",
+  "Defender for Cloud",
+  "Sentinel",
+  "Azure Monitor",
+  "ExpressRoute",
+  "Azure Arc",
+  "Hyper-V",
+  "VMware",
+  "Windows Server",
+];
+
+const steps = [
+  {
+    num: "01",
+    title: "Discovery",
+    body: "Inventaire technique de l'existant, contraintes réglementaires, RTO/RPO réels, budget cible. Pas de slide marketing.",
+  },
+  {
+    num: "02",
+    title: "Architecture",
+    body: "Conception cible documentée, 2 ou 3 alternatives chiffrées, validation avec vos équipes avant écriture du moindre ligne d'IaC.",
+  },
+  {
+    num: "03",
+    title: "Build",
+    body: "IaC versionné, environnements iso-prod, tests, runbooks, formation. Mise en production par vagues, jamais en big-bang.",
+  },
+  {
+    num: "04",
+    title: "Run / Transfert",
+    body: "Vos équipes prennent la main avec des runbooks à jour. Si vous préférez du MCO, on opère — avec revues coûts et sécurité trimestrielles.",
+  },
+];
+---
+
+<PageShell
+  title="Architecture cloud Azure — VNET Consult"
+  description="Landing zones CAF, IaC Terraform, gouvernance et FinOps. Migration de workloads critiques vers Azure et environnements hybrides on-premise / cloud."
+  current="cloud-azure"
+>
+  <PageHero
+    eyebrow="// services / cloud-azure"
+    pill="Hub-Spoke · IaC · FinOps"
+    title={'Architecture <span class="grad-text">Azure</span>,<br />sans surprises.'}
+    subtitle="Landing zones CAF, IaC Terraform, FinOps. Migrer un workload critique vers Azure, c'est d'abord un audit honnête de l'existant — puis une trajectoire chiffrée, documentée et réversible."
+  >
+    <div class="hero-ctas">
+      <a href="/contact" class="btn-primary">Cadrer votre migration →</a>
+      <a href="#methode" class="btn-ghost">Voir la méthode</a>
+    </div>
+  </PageHero>
+
+  <PageSection eyebrow="// approche">
+    <div class="two-col">
+      <div>
+        <h2 class="lead-h2">
+          Le cloud, oui — <span class="grad-text">si</span> ça crée de la valeur mesurable.
+        </h2>
+        <p class="lead-p">
+          On ne migre pas un workload « parce que c'est tendance ». Chaque mission Azure démarre
+          par une évaluation technique de l'existant : dépendances réelles, RTO/RPO réels, coûts
+          cibles réels. Si la conclusion est « gardez-le on-premise », on l'écrit noir sur blanc.
+        </p>
+        <p class="lead-p">
+          Quand la migration a du sens, on conçoit une landing zone CAF, on l'écrit en Terraform,
+          on l'opère avec des garde-fous (policies, RBAC, alertes coûts). Vos équipes gardent la
+          main — le code est dans votre dépôt, pas dans notre tête.
+        </p>
+      </div>
+      <div class="illu-card">
+        <AzureHubSpoke />
+        <div class="illu-caption">Hub-Spoke type : connectivité, identité, monitoring centralisés.</div>
+      </div>
+    </div>
+  </PageSection>
+
+  <PageSection
+    eyebrow="// périmètre"
+    title="Ce qu'on livre concrètement"
+    subtitle="Pas de cadrage flou. Voici les livrables que vous récupérez à la fin d'un engagement Azure type."
+  >
+    <Checklist items={deliverables} />
+  </PageSection>
+
+  <PageSection
+    eyebrow="// hybride"
+    title="On traite aussi l'on-premise et l'hybride."
+    subtitle="Tout n'a pas vocation à partir dans le cloud. Latence, conformité, contrats matériels en cours, applis legacy — il y a des raisons légitimes de garder du on-prem. Dans ce cas, on conçoit l'hybride proprement."
+  >
+    <Checklist items={onPremItems} />
+  </PageSection>
+
+  <PageSection eyebrow="// stack" title="Technologies utilisées">
+    <StackChips items={stack} />
+  </PageSection>
+
+  <PageSection
+    id="methode"
+    eyebrow="// méthode"
+    title='Une mission, <span class="grad-text">quatre temps</span>.'
+    subtitle="Comprendre avant de proposer, cadrer avant de livrer, transférer avant de partir."
+  >
+    <div class="steps-grid">
+      {
+        steps.map((s) => (
+          <div class="step-card">
+            <div class="step-num">{s.num}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </PageSection>
+
+  <CTA
+    title='Une migration Azure dans <span class="grad-text">le viseur</span> ?'
+    text="Un appel de 30 minutes pour décrire votre contexte. On revient avec un cadrage écrit sous 48 h, sans engagement."
+    buttonText="Planifier un appel →"
+    buttonHref="/contact"
+  />
+</PageShell>
+
+<style>
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 14px 26px;
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition:
+      transform 0.15s,
+      box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 40px var(--cyan-glow);
+  }
+  .btn-ghost {
+    padding: 14px 24px;
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--cyan);
+    background: rgba(76, 201, 240, 0.05);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .lead-h2 {
+    font-size: clamp(26px, 3.4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .lead-p {
+    color: var(--fg-dim);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .illu-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+  }
+  .illu-card :global(svg) {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+  }
+  .illu-caption {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .step-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .step-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+  .step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .step-card p {
+    color: var(--fg-dim);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 900px) {
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

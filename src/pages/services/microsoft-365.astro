@@ -1,0 +1,280 @@
+---
+import PageShell from "../../layouts/PageShell.astro";
+import PageHero from "../../components/PageHero.astro";
+import PageSection from "../../components/PageSection.astro";
+import Checklist from "../../components/Checklist.astro";
+import StackChips from "../../components/StackChips.astro";
+import CTA from "../../components/CTA.astro";
+import M365Identity from "../../components/illustrations/M365Identity.astro";
+
+const deliverables = [
+  "Évaluation des tenants existants, dette technique d'identité, conformité",
+  "Déploiement ou consolidation Entra ID (ex-Azure AD), SSO applicatif",
+  "Accès conditionnel : politiques de sécurité granulaires par utilisateur, appareil et risque",
+  "MFA, FIDO2, méthodes phishing-resistant — MFA qui ne se contourne pas avec un SMS",
+  "Intune : enrôlement Windows, macOS, iOS, Android. Profils, conformité, mise à jour pilotée",
+  "Microsoft Purview : DLP, sensitivity labels, rétention documentée",
+  "Migration Exchange / SharePoint / OneDrive depuis tenant tiers ou on-prem",
+  "Teams : gouvernance, lifecycle des équipes, intégration téléphonie",
+  "Power Platform : gouvernance des environnements, DLP, supervision",
+  "Documentation à jour, runbooks et formation des administrateurs",
+];
+
+const apps = [
+  "Microsoft Teams — collaboration, téléphonie, salles de réunion",
+  "SharePoint Online — intranet, gestion documentaire structurée",
+  "Exchange Online — messagerie, calendriers, anti-spam",
+  "OneDrive for Business — stockage personnel, partage contrôlé",
+  "Intune (Microsoft Endpoint Manager) — MDM &amp; MAM",
+  "Entra ID — identité, SSO, accès conditionnel, governance",
+  "Microsoft Purview — DLP, étiquettes, conformité",
+  "Defender for Office 365 — anti-phishing, anti-malware avancé",
+  "Power BI · Power Apps · Power Automate — automatisation",
+];
+
+const stack = [
+  "Entra ID",
+  "Intune",
+  "Microsoft Purview",
+  "Defender for Office 365",
+  "Defender for Endpoint",
+  "Exchange Online",
+  "SharePoint Online",
+  "Teams",
+  "Power Platform",
+  "Microsoft Graph",
+  "Microsoft Graph PowerShell",
+  "Conditional Access",
+];
+
+const steps = [
+  {
+    num: "01",
+    title: "Audit identité",
+    body: "État des lieux du tenant : licences, GPO résiduelles, comptes orphelins, scoring conformité, dette technique.",
+  },
+  {
+    num: "02",
+    title: "Plan de durcissement",
+    body: "Roadmap d'identité-first : MFA, accès conditionnel, MDM, segmentation des admins. Chiffré, étalé, validé.",
+  },
+  {
+    num: "03",
+    title: "Déploiement piloté",
+    body: "Vagues progressives, groupes pilote, communication interne, support proche du terrain. Pas de bascule à minuit.",
+  },
+  {
+    num: "04",
+    title: "Run / Adoption",
+    body: "Adoption mesurée, recyclage des accès, revues trimestrielles. Vos admins savent maintenir sans nous appeler.",
+  },
+];
+---
+
+<PageShell
+  title="Microsoft 365 & Entra — VNET Consult"
+  description="Déploiement et durcissement Microsoft 365, Entra ID, Intune, Purview, Teams. Workplace moderne avec identité conditionnelle, MDM qui fonctionne et conformité documentée."
+  current="microsoft-365"
+>
+  <PageHero
+    eyebrow="// services / microsoft-365"
+    pill="Identity-first · MDM · Compliance"
+    title={'Microsoft 365, <span class="grad-text">durci</span> proprement.'}
+    subtitle="Déploiement Entra ID, Intune, Purview, Teams. Workplace moderne, identité conditionnelle, conformité documentée — et MDM qui marche vraiment sur les terminaux de vos collaborateurs."
+  >
+    <div class="hero-ctas">
+      <a href="/contact" class="btn-primary">Auditer votre tenant →</a>
+      <a href="#perimetre" class="btn-ghost">Voir le périmètre</a>
+    </div>
+  </PageHero>
+
+  <PageSection eyebrow="// approche">
+    <div class="two-col">
+      <div>
+        <h2 class="lead-h2">
+          M365, c'est <span class="grad-text">l'identité</span> avant le reste.
+        </h2>
+        <p class="lead-p">
+          Beaucoup de tenants Microsoft 365 ressemblent à un sous-sol de grand-mère : des
+          décennies d'accumulation, des règles qu'on ne comprend plus, et un MFA optionnel parce
+          que « ça fait râler les utilisateurs ». Ça finit par coûter cher, en sécurité comme en
+          productivité.
+        </p>
+        <p class="lead-p">
+          On commence par l'identité : Entra ID propre, accès conditionnel cohérent, MFA
+          phishing-resistant, MDM Intune qui s'applique. Le reste — Teams, SharePoint, Purview —
+          se construit là-dessus. Sans cette base, on ne déploie rien d'avancé.
+        </p>
+      </div>
+      <div class="illu-card">
+        <M365Identity />
+        <div class="illu-caption">Identité conditionnelle : MFA, signal de risque, appareil conforme.</div>
+      </div>
+    </div>
+  </PageSection>
+
+  <PageSection
+    id="perimetre"
+    eyebrow="// périmètre"
+    title="Ce qu'on livre concrètement"
+    subtitle="Pas de slideware. Voici les livrables d'un engagement M365 type."
+  >
+    <Checklist items={deliverables} />
+  </PageSection>
+
+  <PageSection
+    eyebrow="// applications"
+    title="Applications et services couverts"
+    subtitle="Tous les modules de l'écosystème Microsoft 365 / Entra que l'on déploie, configure et opère."
+  >
+    <Checklist items={apps} />
+  </PageSection>
+
+  <PageSection eyebrow="// stack" title="Technologies utilisées">
+    <StackChips items={stack} />
+  </PageSection>
+
+  <PageSection
+    eyebrow="// méthode"
+    title='Une mission, <span class="grad-text">quatre temps</span>.'
+  >
+    <div class="steps-grid">
+      {
+        steps.map((s) => (
+          <div class="step-card">
+            <div class="step-num">{s.num}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </PageSection>
+
+  <CTA
+    title='Un tenant M365 à <span class="grad-text">durcir</span> ?'
+    text="Un appel pour identifier les écarts de votre tenant actuel. On revient avec un état des lieux écrit et une roadmap chiffrée sous 48 h."
+    buttonText="Planifier un audit →"
+    buttonHref="/contact"
+  />
+</PageShell>
+
+<style>
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 14px 26px;
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition:
+      transform 0.15s,
+      box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 40px var(--cyan-glow);
+  }
+  .btn-ghost {
+    padding: 14px 24px;
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .btn-ghost:hover {
+    border-color: var(--cyan);
+    background: rgba(76, 201, 240, 0.05);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .lead-h2 {
+    font-size: clamp(26px, 3.4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .lead-p {
+    color: var(--fg-dim);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .illu-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .illu-card :global(svg) {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+  }
+  .illu-caption {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .step-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .step-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+  .step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .step-card p {
+    color: var(--fg-dim);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 900px) {
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
