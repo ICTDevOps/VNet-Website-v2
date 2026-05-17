@@ -11,6 +11,7 @@ const services: Service[] = [
 ];
 
 const links = [
+  { href: "/", label: "Accueil", key: "accueil" },
   { href: isHome ? "#plateformes" : "/#plateformes", label: "Plateformes", key: "plateformes", services },
   { href: isHome ? "#approche" : "/#approche", label: "Approche", key: "approche" },
   { href: "/a-propos", label: "À propos", key: "a-propos" },
@@ -65,7 +66,7 @@ const isServiceCurrent = services.some((s) => s.key === current);
       <li class={l.services ? "has-menu" : ""}>
         <a
           href={l.href}
-          class={(current === l.key || (l.services && isServiceCurrent)) ? "active" : ""}
+          class={(current === l.key || (l.services && isServiceCurrent) || (l.key === "accueil" && isHome && !current)) ? "active" : ""}
         >
           {l.label}
           {l.services && <span class="menu-caret">↓</span>}
