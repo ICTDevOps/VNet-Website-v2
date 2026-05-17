@@ -1,0 +1,319 @@
+---
+import PageShell from "../../layouts/PageShell.astro";
+import PageHero from "../../components/PageHero.astro";
+import PageSection from "../../components/PageSection.astro";
+import Checklist from "../../components/Checklist.astro";
+import StackChips from "../../components/StackChips.astro";
+import CTA from "../../components/CTA.astro";
+import LearningPath from "../../components/illustrations/LearningPath.astro";
+
+const programs = [
+  {
+    code: "AZ-FND",
+    duration: "2 jours",
+    title: "Azure — Fondamentaux & administration",
+    audience: "Admins IT, architectes débutants Azure",
+    body: "Compute, réseau, stockage, identité. Déployer et gérer des ressources, optimiser coûts et sécurité. Hands-on sur un tenant dédié.",
+  },
+  {
+    code: "AZ-IAC",
+    duration: "2 jours",
+    title: "Terraform sur Azure — Infrastructure as Code",
+    audience: "DevOps, admins Azure intermédiaires",
+    body: "Modules, state, pipelines CI/CD, gestion des secrets, refactor d'infra existante. On finit avec une landing zone CAF déployée par les participants.",
+  },
+  {
+    code: "M365-ADM",
+    duration: "2 jours",
+    title: "Microsoft 365 — Administration moderne",
+    audience: "Admins M365, responsables IT",
+    body: "Entra ID, Intune, Purview, Teams. Identité conditionnelle, MDM, conformité. Cas pratiques sur un tenant pilote.",
+  },
+  {
+    code: "SEC-ENTRA",
+    duration: "1 jour",
+    title: "Sécurité Entra & Conditional Access",
+    audience: "Admins identité, RSSI, équipes IAM",
+    body: "Modèles d'accès conditionnel, MFA phishing-resistant, gestion des admins, détection. Atelier : auditer un tenant réel anonymisé.",
+  },
+  {
+    code: "AI-FND",
+    duration: "1 jour",
+    title: "Azure OpenAI & RAG — Introduction",
+    audience: "Dev, architectes, chefs de projet",
+    body: "Comprendre les LLM, déployer Azure OpenAI, construire un RAG simple, mesurer la qualité, gérer les coûts.",
+  },
+  {
+    code: "POW-PLA",
+    duration: "2 jours",
+    title: "Power Platform — Automatiser sans code",
+    audience: "Analystes, citizen developers",
+    body: "Power BI, Power Apps, Power Automate. Patterns courants, gouvernance, intégration M365 et IA.",
+  },
+];
+
+const domains = [
+  "Cloud Azure (architecture, sécurité, IaC, FinOps)",
+  "Microsoft 365 &amp; Entra (identité, MDM, conformité)",
+  "Cybersécurité (sensibilisation, durcissement, détection)",
+  "Power Platform (Power BI, Apps, Automate)",
+  "Infrastructure (Windows Server, virtualisation, réseau)",
+  "Intelligence artificielle (Azure OpenAI, Copilot, RAG)",
+];
+
+const formats = [
+  "Présentiel en Belgique ou au Luxembourg, dans vos locaux ou en salle dédiée",
+  "Distanciel live, sessions interactives via Microsoft Teams",
+  "Hybride (présentiel + distanciel asynchrone) sur les formats longs",
+  "Ateliers hands-on sur tenant dédié — on ne fait pas que des slides",
+  "Coaching individuel ou en binôme pour des montées en compétence ciblées",
+];
+
+const stack = [
+  "Azure",
+  "Terraform",
+  "Entra ID",
+  "Intune",
+  "Microsoft Purview",
+  "Defender",
+  "Microsoft Sentinel",
+  "Power Platform",
+  "Azure OpenAI",
+  "PowerShell",
+  "GitHub Actions",
+];
+---
+
+<PageShell
+  title="Formations & Séminaires — VNET Consult"
+  description="Programmes Azure, Terraform, M365 Admin, sécurité Entra, IA. Sessions sur mesure pour vos équipes, en présentiel BE/LU ou à distance."
+  current="formations"
+>
+  <PageHero
+    eyebrow="// services / formations"
+    pill="BE · LU · Remote"
+    title={'Formations <span class="grad-text">opérationnelles</span>, pas théoriques.'}
+    subtitle="Programmes Azure, Terraform, M365 Admin, sécurité Entra. Sessions sur mesure pour vos équipes, en présentiel BE/LU ou à distance — avec un tenant dédié pour la pratique."
+  >
+    <div class="hero-ctas">
+      <a href="/contact" class="btn-primary">Demander un programme →</a>
+      <a href="#programmes" class="btn-ghost">Voir les programmes</a>
+    </div>
+  </PageHero>
+
+  <PageSection eyebrow="// approche">
+    <div class="two-col">
+      <div>
+        <h2 class="lead-h2">
+          <span class="grad-text">Apprendre</span> en faisant. Pas en écoutant.
+        </h2>
+        <p class="lead-p">
+          Une formation efficace, ce n'est pas un PowerPoint de 200 slides. C'est une journée
+          où les participants déploient eux-mêmes une infra Azure, durcissent un tenant M365,
+          ou cassent puis réparent une politique d'accès conditionnel. Le savoir reste quand
+          les mains ont travaillé.
+        </p>
+        <p class="lead-p">
+          Toutes nos sessions sont animées par les ingénieurs qui déploient ces solutions
+          en production. Pas de formateur permanent déconnecté du terrain — chaque cas pratique
+          vient de missions réelles, anonymisées.
+        </p>
+      </div>
+      <div class="illu-card">
+        <LearningPath />
+        <div class="illu-caption">Parcours type : socle, hands-on, mise en pratique sur tenant.</div>
+      </div>
+    </div>
+  </PageSection>
+
+  <PageSection
+    id="programmes"
+    eyebrow="// programmes"
+    title="Catalogue de programmes"
+    subtitle="Référentiel de base. Tous les programmes peuvent être adaptés au contexte de votre organisation (durée, profondeur, cas d'études)."
+  >
+    <div class="programs-grid">
+      {
+        programs.map((p) => (
+          <div class="prog-card">
+            <div class="prog-head">
+              <span class="prog-code">{p.code}</span>
+              <span class="prog-dur">{p.duration}</span>
+            </div>
+            <h3>{p.title}</h3>
+            <p class="prog-body">{p.body}</p>
+            <div class="prog-aud">Public : {p.audience}</div>
+          </div>
+        ))
+      }
+    </div>
+  </PageSection>
+
+  <PageSection eyebrow="// domaines" title="Domaines couverts">
+    <Checklist items={domains} />
+  </PageSection>
+
+  <PageSection eyebrow="// formats" title="Formats">
+    <Checklist items={formats} />
+  </PageSection>
+
+  <PageSection eyebrow="// stack" title="Technologies enseignées">
+    <StackChips items={stack} />
+  </PageSection>
+
+  <CTA
+    title='Un besoin de <span class="grad-text">formation</span> en interne ?'
+    text="On adapte les programmes à votre niveau et à votre contexte. Pour les groupes (4 personnes ou plus), le sur-mesure est généralement plus efficace que les sessions publiques."
+    buttonText="Demander un programme →"
+    buttonHref="/contact"
+  />
+</PageShell>
+
+<style>
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 14px 26px;
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition:
+      transform 0.15s,
+      box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 40px var(--cyan-glow);
+  }
+  .btn-ghost {
+    padding: 14px 24px;
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .btn-ghost:hover {
+    border-color: var(--cyan);
+    background: rgba(76, 201, 240, 0.05);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .lead-h2 {
+    font-size: clamp(26px, 3.4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .lead-p {
+    color: var(--fg-dim);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .illu-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .illu-card :global(svg) {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+  }
+  .illu-caption {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .prog-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 28px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .prog-card:hover {
+    border-color: rgba(76, 201, 240, 0.3);
+    background: var(--bg-3);
+  }
+  .prog-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .prog-code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    background: rgba(76, 201, 240, 0.1);
+    color: var(--cyan);
+    border-radius: 6px;
+    border: 1px solid rgba(76, 201, 240, 0.2);
+    letter-spacing: 0.04em;
+  }
+  .prog-dur {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    letter-spacing: 0.06em;
+  }
+  .prog-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .prog-body {
+    color: var(--fg-dim);
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .prog-aud {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 900px) {
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .programs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

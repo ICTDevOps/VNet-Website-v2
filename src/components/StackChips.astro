@@ -1,0 +1,35 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="chips">
+  {items.map((item) => <span class="chip">{item}</span>)}
+</div>
+
+<style>
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    background: var(--bg-2);
+    color: var(--fg-dim);
+    border: 1px solid var(--line);
+    transition:
+      border-color 0.2s,
+      color 0.2s;
+  }
+  .chip:hover {
+    border-color: rgba(76, 201, 240, 0.4);
+    color: var(--fg);
+  }
+</style>

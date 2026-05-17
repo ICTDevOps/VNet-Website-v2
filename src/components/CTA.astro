@@ -1,13 +1,16 @@
 ---
+const {
+  title = "Prêt à connecter <span class=\"grad-text\">le tout</span> ?",
+  text = "Un appel de 30 minutes pour décrire votre contexte. Nous revenons avec un cadrage écrit sous 48 h, sans engagement.",
+  buttonText = "Réserver un créneau →",
+  buttonHref = "/contact",
+} = Astro.props as { title?: string; text?: string; buttonText?: string; buttonHref?: string };
 ---
 
-<section class="cta-section" id="contact">
-  <h2>Prêt à connecter <span class="grad-text">le tout</span> ?</h2>
-  <p>
-    Un appel de 30 minutes pour décrire votre contexte. Nous revenons avec un
-    cadrage écrit sous 48 h, sans engagement.
-  </p>
-  <a href="#" class="btn-primary">Réserver un créneau →</a>
+<section class="cta-section">
+  <h2 set:html={title}></h2>
+  <p>{text}</p>
+  <a href={buttonHref} class="btn-primary">{buttonText}</a>
 </section>
 
 <style>

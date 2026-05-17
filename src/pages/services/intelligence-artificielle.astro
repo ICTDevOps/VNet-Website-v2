@@ -1,0 +1,277 @@
+---
+import PageShell from "../../layouts/PageShell.astro";
+import PageHero from "../../components/PageHero.astro";
+import PageSection from "../../components/PageSection.astro";
+import Checklist from "../../components/Checklist.astro";
+import StackChips from "../../components/StackChips.astro";
+import CTA from "../../components/CTA.astro";
+import RAGPipeline from "../../components/illustrations/RAGPipeline.astro";
+
+const useCases = [
+  "Assistant interne sur vos documents (RAG sur SharePoint, Confluence, base contrats) — réponses sourcées, pas hallucinées",
+  "Triage et résumé automatique de tickets, mails, retours clients",
+  "Génération de rapports structurés à partir de données métier",
+  "Recherche conversationnelle sur catalogues produits ou bases de connaissance",
+  "Copilot Studio : agents conversationnels intégrés dans Teams, avec garde-fous",
+  "Automatisations Power Automate enrichies par GPT (extraction, classification)",
+  "Analyse de documents : factures, contrats, formulaires (Form Recognizer)",
+  "Modération &amp; conformité : détection de contenu sensible, masquage PII avant prompt",
+];
+
+const deliverables = [
+  "Atelier de cadrage : identifier 2–3 cas d'usage à ROI mesurable, écarter le bruit",
+  "Architecture Azure OpenAI / Foundry : déploiement, gestion des quotas, isolation réseau",
+  "RAG pipeline : ingestion, embeddings, vector store (AI Search ou Postgres pgvector), réponse sourcée",
+  "Sécurité et gouvernance : isolation tenant, content safety, journalisation des prompts",
+  "Évaluation : métriques de qualité, jeux de tests, A/B sur prompts &amp; modèles",
+  "Intégration applicative : API, Teams, Power Platform, web app sur mesure",
+  "FinOps IA : monitoring des coûts par cas d'usage, limites par utilisateur",
+  "Formation des équipes : prompt engineering, limites du modèle, supervision continue",
+];
+
+const stack = [
+  "Azure OpenAI",
+  "Azure AI Foundry",
+  "AI Search",
+  "Copilot Studio",
+  "Microsoft 365 Copilot",
+  "Power Platform AI",
+  "Form Recognizer",
+  "Content Safety",
+  "LangChain",
+  "Semantic Kernel",
+  "pgvector",
+  "Python",
+  "TypeScript",
+];
+
+const steps = [
+  {
+    num: "01",
+    title: "Cadrage",
+    body: "Atelier d'une journée : on confronte les idées d'IA à la réalité métier. On écarte les cas qui n'ont pas de ROI ou pas de données pour fonctionner.",
+  },
+  {
+    num: "02",
+    title: "Prototype",
+    body: "POC sur un périmètre restreint, en 2–3 semaines. Métriques de qualité, jeu de tests, coût estimé en production.",
+  },
+  {
+    num: "03",
+    title: "Industrialisation",
+    body: "Sécurité, isolation, observabilité, limites de coût, garde-fous. La même rigueur qu'une app métier classique.",
+  },
+  {
+    num: "04",
+    title: "Run / Évolution",
+    body: "Suivi qualité continu, mise à jour des modèles, ré-entraînement des index. L'IA en production, c'est de l'entretien — pas une démo figée.",
+  },
+];
+---
+
+<PageShell
+  title="Intelligence artificielle — VNET Consult"
+  description="Azure OpenAI, Copilot Studio, RAG sur vos données. Cas d'usage cadrés, garde-fous, gouvernance — l'IA en production, pas en démo."
+  current="ia"
+>
+  <PageHero
+    eyebrow="// services / intelligence-artificielle"
+    pill="Azure OpenAI · RAG · Copilot"
+    title={'L\'IA en <span class="grad-text">production</span>, pas en démo.'}
+    subtitle="Azure OpenAI, Copilot Studio, RAG sur vos données. Cas d'usage cadrés, garde-fous, gouvernance — pas de pilote qui finit en démo PowerPoint trois mois après le kick-off."
+  >
+    <div class="hero-ctas">
+      <a href="/contact" class="btn-primary">Cadrer un cas d'usage →</a>
+      <a href="#cas-usage" class="btn-ghost">Voir les cas d'usage</a>
+    </div>
+  </PageHero>
+
+  <PageSection eyebrow="// approche">
+    <div class="two-col">
+      <div>
+        <h2 class="lead-h2">
+          L'IA marche — <span class="grad-text">sur les bons</span> problèmes.
+        </h2>
+        <p class="lead-p">
+          Tout le monde veut « faire de l'IA ». Peu de monde sait ce que ça veut dire concrètement.
+          Les LLM brillent sur certains problèmes (synthèse, extraction, recherche conversationnelle,
+          génération texte) et trébuchent sur d'autres (calcul, raisonnement strict, données rares).
+          La frontière n'est pas évidente, elle se découvre par essai.
+        </p>
+        <p class="lead-p">
+          Notre approche : un atelier de cadrage qui sépare les cas d'usage à fort ROI des
+          fantasmes, un POC court pour mesurer, puis une industrialisation sécurisée
+          — avec coûts, qualité et conformité sous contrôle.
+        </p>
+      </div>
+      <div class="illu-card">
+        <RAGPipeline />
+        <div class="illu-caption">RAG pipeline : ingestion, vector store, réponse sourcée.</div>
+      </div>
+    </div>
+  </PageSection>
+
+  <PageSection
+    id="cas-usage"
+    eyebrow="// cas d'usage"
+    title="Cas d'usage que l'on traite"
+    subtitle="Liste non exhaustive. Si votre cas ne figure pas, on en discute — souvent il existe une variante qui marche."
+  >
+    <Checklist items={useCases} />
+  </PageSection>
+
+  <PageSection
+    eyebrow="// périmètre"
+    title="Ce qu'on livre concrètement"
+  >
+    <Checklist items={deliverables} />
+  </PageSection>
+
+  <PageSection eyebrow="// stack" title="Technologies utilisées">
+    <StackChips items={stack} />
+  </PageSection>
+
+  <PageSection
+    eyebrow="// méthode"
+    title={`De <span class="grad-text">l'idée</span> à la production.`}
+  >
+    <div class="steps-grid">
+      {
+        steps.map((s) => (
+          <div class="step-card">
+            <div class="step-num">{s.num}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </PageSection>
+
+  <CTA
+    title={`Un cas d'usage <span class="grad-text">IA</span> à valider ?`}
+    text="Atelier de cadrage d'une demi-journée : on confronte vos idées à la réalité technique et économique. Cadrage écrit sous 48 h."
+    buttonText="Planifier l'atelier →"
+    buttonHref="/contact"
+  />
+</PageShell>
+
+<style>
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 14px 26px;
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition:
+      transform 0.15s,
+      box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 40px var(--cyan-glow);
+  }
+  .btn-ghost {
+    padding: 14px 24px;
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .btn-ghost:hover {
+    border-color: var(--cyan);
+    background: rgba(76, 201, 240, 0.05);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .lead-h2 {
+    font-size: clamp(26px, 3.4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .lead-p {
+    color: var(--fg-dim);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .illu-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .illu-card :global(svg) {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+  }
+  .illu-caption {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .step-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .step-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+  .step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .step-card p {
+    color: var(--fg-dim);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 900px) {
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

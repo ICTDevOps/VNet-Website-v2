@@ -1,0 +1,332 @@
+---
+import PageShell from "../layouts/PageShell.astro";
+import PageHero from "../components/PageHero.astro";
+import PageSection from "../components/PageSection.astro";
+import Checklist from "../components/Checklist.astro";
+import CTA from "../components/CTA.astro";
+
+const principles = [
+  "<strong>Diagnostic avant prescription.</strong> On ne propose rien sans avoir vu le code, la facture Azure ou le tenant. Tout le reste est de la conjecture.",
+  "<strong>Code dans votre dépôt.</strong> Toute l'infrastructure que l'on conçoit est en IaC, dans <em>votre</em> repo. Pas de boîte noire, pas de dépendance à notre prestation.",
+  "<strong>Chiffrage écrit, alternatives chiffrées.</strong> Chaque proposition arrive en 48 h avec des chiffres et au moins deux options. Si on se trompe, c'est documenté.",
+  "<strong>Transfert avant départ.</strong> En fin de mission, vos équipes savent maintenir. Runbooks, formations, code commenté — pas de dépendance manufacturée.",
+  "<strong>Honnêteté sur les limites.</strong> Quand un projet ne devrait pas être lancé, on le dit. Quand une techno est inadaptée, on le dit. C'est ce qui crée la confiance dans la durée.",
+];
+
+const certs = [
+  { code: "AZ-305", name: "Microsoft Certified : Azure Solutions Architect Expert" },
+  { code: "AZ-500", name: "Microsoft Certified : Azure Security Engineer Associate" },
+  { code: "MS-100/101", name: "Microsoft 365 Certified : Enterprise Administrator Expert" },
+  { code: "SC-300", name: "Microsoft Certified : Identity and Access Administrator" },
+  { code: "AI-102", name: "Microsoft Certified : Azure AI Engineer Associate" },
+  { code: "CSP", name: "Microsoft Cloud Solution Provider partner" },
+];
+---
+
+<PageShell
+  title="À propos — VNET Consult"
+  description="VNET Consult — cabinet de consultance fondé par Olivier Malfroidt. Architecture cloud Azure, M365 & IA. Ingénieur-first, anti-corporate-speak, pour PME et grandes organisations BE/LU."
+  current="a-propos"
+>
+  <PageHero
+    eyebrow="// à propos"
+    pill="Olivier Malfroidt · Fondateur"
+    title={'Un cabinet de <span class="grad-text">consultance</span> qui code.'}
+    subtitle="VNET Consult a été fondé en 2021 par Olivier Malfroidt après une quinzaine d'années à concevoir et opérer des infrastructures critiques. L'idée de départ tient en une ligne : faire de la consultance technique sans les vices habituels de la consultance."
+  />
+
+  <PageSection eyebrow="// manifeste">
+    <div class="manifesto">
+      <p class="quote">
+        « Quinze ans d'infrastructure m'ont appris une chose : la
+        <span class="grad-text">complexité</span> n'est jamais un objectif.
+        C'est un constat d'échec. »
+      </p>
+      <div class="signature">
+        <div class="sig-avatar">OM</div>
+        <div class="sig-text">
+          <strong>Olivier Malfroidt</strong>
+          Fondateur · Architecte cloud Azure
+        </div>
+      </div>
+
+      <div class="manifesto-body">
+        <p>
+          La consultance IT a une mauvaise réputation, souvent méritée. Des slides en pagaille,
+          des recommandations génériques, des dépendances soigneusement entretenues, du jargon
+          qui maquille des compétences fragiles. Tout ça finit par coûter cher au client — et
+          fait reculer la qualité de l'ingénierie dans nos organisations.
+        </p>
+        <p>
+          VNET Consult fonctionne autrement. On audite avant de proposer. On chiffre par écrit.
+          On code dans votre dépôt. On transfère les compétences en sortie. Et quand un projet
+          n'a pas de sens, on le dit — même si c'est désagréable à entendre.
+        </p>
+        <p>
+          C'est un positionnement plus exigeant à court terme, mais c'est celui qui construit
+          des relations de confiance dans la durée. Et accessoirement, c'est plus intéressant
+          à pratiquer.
+        </p>
+      </div>
+    </div>
+  </PageSection>
+
+  <PageSection eyebrow="// principes" title="Cinq principes que l'on tient">
+    <ol class="principles">
+      {
+        principles.map((p, i) => (
+          <li>
+            <span class="principle-num">{String(i + 1).padStart(2, "0")}</span>
+            <span class="principle-text" set:html={p}></span>
+          </li>
+        ))
+      }
+    </ol>
+  </PageSection>
+
+  <PageSection
+    eyebrow="// équipe"
+    title="Une équipe à taille humaine"
+    subtitle="VNET Consult est un cabinet de consultance volontairement compact. Olivier intervient lui-même sur les missions, entouré d'un réseau d'ingénieurs partenaires mobilisés selon les besoins. Pas d'armée de juniors à facturer."
+  >
+    <div class="founder-card">
+      <div class="founder-avatar">OM</div>
+      <div class="founder-content">
+        <h3>Olivier Malfroidt</h3>
+        <div class="founder-role">Fondateur · Architecte cloud Azure · Ingénieur infrastructure</div>
+        <p>
+          15+ ans d'expérience en infrastructure on-premise puis cloud. Spécialisé Azure
+          (architecture, IaC Terraform, sécurité), Microsoft 365 / Entra, et intégration
+          IA en entreprise. Formations en présentiel et en distanciel pour les équipes
+          IT belges et luxembourgeoises.
+        </p>
+        <div class="founder-links">
+          <a href="https://www.linkedin.com/company/vnetconsult" target="_blank" rel="noopener">LinkedIn →</a>
+          <a href="mailto:contact@vnetconsult.be">contact@vnetconsult.be</a>
+        </div>
+      </div>
+    </div>
+  </PageSection>
+
+  <PageSection
+    eyebrow="// certifications"
+    title="Certifications Microsoft à jour"
+    subtitle="Les certifications ne remplacent pas l'expérience, mais elles attestent d'un socle commun et obligent à se tenir à jour avec l'évolution de la plateforme."
+  >
+    <div class="certs-grid">
+      {
+        certs.map((c) => (
+          <div class="cert-card">
+            <span class="cert-code">{c.code}</span>
+            <span class="cert-name">{c.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </PageSection>
+
+  <PageSection
+    eyebrow="// zone d'intervention"
+    title="Belgique &amp; Luxembourg"
+    subtitle="Notre marché principal est la Belgique et le Luxembourg, en présentiel ou en distanciel. Des interventions ponctuelles ailleurs en Europe sont possibles sur des missions cadrées."
+  >
+    <Checklist
+      items={[
+        "Bruxelles, Wallonie, Flandre — présentiel régulier",
+        "Grand-Duché de Luxembourg — présentiel régulier",
+        "Reste de l'UE — distanciel ou missions courtes en présentiel",
+        "Langues de travail : français (principal), anglais, néerlandais",
+      ]}
+    />
+  </PageSection>
+
+  <CTA
+    title='Un projet, une question, un <span class="grad-text">audit</span> ?'
+    text="Le plus simple est encore un appel de 30 minutes. On comprend votre contexte, on dit ce que l'on peut faire — et ce que l'on ne ferait pas à votre place."
+    buttonText="Planifier un appel →"
+    buttonHref="/contact"
+  />
+</PageShell>
+
+<style>
+  .manifesto {
+    max-width: 760px;
+  }
+  .quote {
+    font-size: clamp(24px, 3.3vw, 34px);
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .signature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sig-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--bg);
+    font-size: 15px;
+  }
+  .sig-text {
+    font-size: 14px;
+    color: var(--fg-dim);
+  }
+  .sig-text strong {
+    color: var(--fg);
+    font-weight: 600;
+    display: block;
+  }
+  .manifesto-body p {
+    color: var(--fg-dim);
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .principles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: principle;
+    display: grid;
+    gap: 20px;
+    max-width: 880px;
+  }
+  .principles li {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    padding: 22px 24px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .principle-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    padding-top: 4px;
+    flex-shrink: 0;
+    letter-spacing: 0.08em;
+  }
+  .principle-text {
+    color: var(--fg-dim);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .principle-text :global(strong) {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  .founder-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: flex-start;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 880px;
+  }
+  .founder-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--bg);
+    font-size: 22px;
+  }
+  .founder-content h3 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .founder-role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--fg-faint);
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+  .founder-content p {
+    color: var(--fg-dim);
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .founder-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+  .founder-links a {
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .founder-links a:hover {
+    text-decoration: underline;
+  }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    max-width: 880px;
+  }
+  .cert-card {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 18px 22px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .cert-code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    background: rgba(139, 92, 246, 0.12);
+    color: var(--violet);
+    border-radius: 6px;
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .cert-name {
+    font-size: 14px;
+    color: var(--fg-dim);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 900px) {
+    .founder-card {
+      grid-template-columns: 1fr;
+      padding: 24px;
+    }
+    .certs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
