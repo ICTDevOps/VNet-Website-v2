@@ -1,0 +1,207 @@
+---
+---
+
+<svg
+  viewBox="0 0 400 200"
+  preserveAspectRatio="xMidYMid meet"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="g1-hub" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.35"></stop>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.25"></stop>
+    </linearGradient>
+    <linearGradient id="g1-spoke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#4cc9f0" stop-opacity="0.12"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect
+    x="20"
+    y="20"
+    width="360"
+    height="160"
+    rx="8"
+    fill="none"
+    stroke="#5a6178"
+    stroke-width="0.8"
+    stroke-dasharray="3 4"
+    opacity="0.5"></rect>
+  <text
+    x="28"
+    y="34"
+    fill="#5a6178"
+    font-family="JetBrains Mono, monospace"
+    font-size="9"
+    opacity="0.7">subscription: prod</text
+  >
+
+  <line
+    x1="200"
+    y1="90"
+    x2="90"
+    y2="140"
+    stroke="#4cc9f0"
+    stroke-width="1.2"
+    opacity="0.5"
+    class="illu-flow"></line>
+  <line
+    x1="200"
+    y1="90"
+    x2="200"
+    y2="140"
+    stroke="#4cc9f0"
+    stroke-width="1.2"
+    opacity="0.5"
+    class="illu-flow"></line>
+  <line
+    x1="200"
+    y1="90"
+    x2="310"
+    y2="140"
+    stroke="#4cc9f0"
+    stroke-width="1.2"
+    opacity="0.5"
+    class="illu-flow"></line>
+
+  <rect
+    x="155"
+    y="55"
+    width="90"
+    height="42"
+    rx="6"
+    fill="url(#g1-hub)"
+    stroke="#4cc9f0"
+    stroke-width="1.2"></rect>
+  <circle cx="170" cy="70" r="2.5" fill="#4cc9f0" class="illu-pulse"></circle>
+  <circle cx="180" cy="70" r="2.5" fill="#4cc9f0" class="illu-pulse delayed-1"
+  ></circle>
+  <circle cx="170" cy="82" r="2.5" fill="#8b5cf6" class="illu-pulse delayed-2"
+  ></circle>
+  <text
+    x="200"
+    y="78"
+    fill="#eef1f8"
+    font-family="JetBrains Mono, monospace"
+    font-size="10"
+    font-weight="500"
+    text-anchor="middle">HUB</text
+  >
+  <text
+    x="200"
+    y="90"
+    fill="#8a92a7"
+    font-family="JetBrains Mono, monospace"
+    font-size="7"
+    text-anchor="middle">10.0.0.0/16</text
+  >
+
+  <rect
+    x="45"
+    y="135"
+    width="90"
+    height="38"
+    rx="6"
+    fill="url(#g1-spoke)"
+    stroke="#8b5cf6"
+    stroke-width="1"
+    opacity="0.85"></rect>
+  <circle cx="58" cy="148" r="2" fill="#8b5cf6" class="illu-pulse delayed-1"
+  ></circle>
+  <text
+    x="90"
+    y="154"
+    fill="#eef1f8"
+    font-family="JetBrains Mono, monospace"
+    font-size="9"
+    font-weight="500"
+    text-anchor="middle">spoke-prod</text
+  >
+  <text
+    x="90"
+    y="165"
+    fill="#8a92a7"
+    font-family="JetBrains Mono, monospace"
+    font-size="7"
+    text-anchor="middle">10.1.0.0/16</text
+  >
+
+  <rect
+    x="155"
+    y="135"
+    width="90"
+    height="38"
+    rx="6"
+    fill="url(#g1-spoke)"
+    stroke="#8b5cf6"
+    stroke-width="1"
+    opacity="0.85"></rect>
+  <circle cx="168" cy="148" r="2" fill="#8b5cf6" class="illu-pulse delayed-2"
+  ></circle>
+  <text
+    x="200"
+    y="154"
+    fill="#eef1f8"
+    font-family="JetBrains Mono, monospace"
+    font-size="9"
+    font-weight="500"
+    text-anchor="middle">spoke-dev</text
+  >
+  <text
+    x="200"
+    y="165"
+    fill="#8a92a7"
+    font-family="JetBrains Mono, monospace"
+    font-size="7"
+    text-anchor="middle">10.2.0.0/16</text
+  >
+
+  <rect
+    x="265"
+    y="135"
+    width="90"
+    height="38"
+    rx="6"
+    fill="url(#g1-spoke)"
+    stroke="#8b5cf6"
+    stroke-width="1"
+    opacity="0.85"></rect>
+  <circle cx="278" cy="148" r="2" fill="#8b5cf6" class="illu-pulse delayed-3"
+  ></circle>
+  <text
+    x="310"
+    y="154"
+    fill="#eef1f8"
+    font-family="JetBrains Mono, monospace"
+    font-size="9"
+    font-weight="500"
+    text-anchor="middle">spoke-shared</text
+  >
+  <text
+    x="310"
+    y="165"
+    fill="#8a92a7"
+    font-family="JetBrains Mono, monospace"
+    font-size="7"
+    text-anchor="middle">10.3.0.0/16</text
+  >
+
+  <g transform="translate(218, 60)">
+    <rect
+      x="0"
+      y="0"
+      width="14"
+      height="11"
+      rx="1.5"
+      fill="none"
+      stroke="#4cc9f0"
+      stroke-width="0.8"></rect>
+    <line x1="0" y1="5.5" x2="14" y2="5.5" stroke="#4cc9f0" stroke-width="0.6"
+    ></line>
+    <line x1="3.5" y1="0" x2="3.5" y2="11" stroke="#4cc9f0" stroke-width="0.6"
+    ></line>
+    <line x1="10.5" y1="0" x2="10.5" y2="11" stroke="#4cc9f0" stroke-width="0.6"
+    ></line>
+  </g>
+</svg>

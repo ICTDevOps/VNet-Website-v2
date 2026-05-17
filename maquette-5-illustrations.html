@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VNET Consult — Maquette 5 : Illustrations architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --bg-2: #0e1220;
+    --bg-3: #131829;
+    --fg: #eef1f8;
+    --fg-dim: #8a92a7;
+    --fg-faint: #5a6178;
+    --line: rgba(255,255,255,0.07);
+    --line-strong: rgba(255,255,255,0.14);
+    --cyan: #4cc9f0;
+    --violet: #8b5cf6;
+    --cyan-glow: rgba(76, 201, 240, 0.4);
+    --violet-glow: rgba(139, 92, 246, 0.35);
+    --grad: linear-gradient(135deg, #4cc9f0 0%, #8b5cf6 100%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--fg); font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+  #bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .glow { position: fixed; width: 1000px; height: 1000px; top: -300px; left: 50%; transform: translateX(-50%); background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 55%); z-index: 0; pointer-events: none; filter: blur(60px); opacity: 0.6; }
+  .glow-2 { position: fixed; width: 700px; height: 700px; top: 40%; right: -250px; background: radial-gradient(circle, var(--violet-glow) 0%, transparent 60%); z-index: 0; pointer-events: none; filter: blur(80px); opacity: 0.5; }
+
+  nav { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); background: rgba(7, 9, 15, 0.75); }
+  .logo { display: flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 15px; }
+  .logo-mark { width: 30px; height: 30px; }
+  .logo-mark svg { width: 100%; height: 100%; }
+  .logo-text span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a { color: var(--fg-dim); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+  nav a:hover { color: var(--fg); }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .lang { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg-faint); letter-spacing: 0.05em; }
+  .lang .active { color: var(--fg); font-weight: 500; }
+  .nav-cta { padding: 10px 18px; background: var(--fg); color: var(--bg); border-radius: 6px; font-weight: 600; font-size: 13px; text-decoration: none; transition: opacity .2s; }
+  .nav-cta:hover { opacity: 0.88; }
+
+  .hero { position: relative; z-index: 5; padding: 110px 48px 120px; max-width: 1280px; margin: 0 auto; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; padding: 5px 6px 5px 14px; border: 1px solid var(--line); border-radius: 100px; font-size: 13px; color: var(--fg-dim); margin-bottom: 36px; background: rgba(255,255,255,0.025); text-decoration: none; }
+  .pill:hover { border-color: var(--line-strong); }
+  .pill-badge { background: var(--grad); padding: 3px 11px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: var(--bg); letter-spacing: 0.08em; }
+  .pill-arrow { color: var(--fg-faint); font-family: 'JetBrains Mono', monospace; }
+  .hero h1 { font-size: clamp(44px, 7vw, 96px); font-weight: 800; line-height: 0.98; letter-spacing: -0.035em; margin-bottom: 28px; max-width: 1080px; }
+  .hero h1 .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% 200%; animation: gradMove 10s ease infinite; }
+  @keyframes gradMove { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .hero p.lede { font-size: 20px; line-height: 1.6; color: var(--fg-dim); max-width: 660px; margin-bottom: 48px; }
+  .cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary { padding: 15px 28px; background: var(--fg); color: var(--bg); border-radius: 8px; font-weight: 600; font-size: 15px; text-decoration: none; transition: transform .15s, box-shadow .2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 40px var(--cyan-glow); }
+  .btn-ghost { padding: 15px 26px; border: 1px solid var(--line-strong); color: var(--fg); border-radius: 8px; font-weight: 500; font-size: 15px; text-decoration: none; transition: border-color .2s, background .2s; background: rgba(255,255,255,0.02); }
+  .btn-ghost:hover { border-color: var(--cyan); background: rgba(76,201,240,0.05); }
+
+  .stats { position: relative; z-index: 5; max-width: 1280px; margin: 40px auto 0; padding: 36px 48px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 500; color: var(--fg); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .stat-num .accent { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat-label { font-size: 13px; color: var(--fg-dim); }
+
+  .logos { position: relative; z-index: 5; padding: 32px 48px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: center; gap: 56px; flex-wrap: wrap; max-width: 1280px; margin: 0 auto; }
+  .logos-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--fg-faint); text-transform: uppercase; letter-spacing: 0.15em; }
+  .logo-placeholder { font-weight: 600; color: var(--fg-dim); font-size: 15px; opacity: 0.55; transition: opacity .2s; }
+  .logo-placeholder:hover { opacity: 1; }
+
+  .section { position: relative; z-index: 5; max-width: 1280px; margin: 140px auto 0; padding: 0 48px; }
+  .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; font-weight: 500; }
+  .section-title { font-size: clamp(32px, 4.5vw, 52px); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 16px; max-width: 760px; line-height: 1.05; }
+  .section-title .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .section-sub { color: var(--fg-dim); font-size: 17px; max-width: 620px; margin-bottom: 56px; line-height: 1.55; }
+
+  /* --- NEW SERVICE CARDS WITH ARCHITECTURE ILLUSTRATIONS --- */
+  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .service-card {
+    border-radius: 18px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, background .3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  .service-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 18px; padding: 1px;
+    background: var(--grad);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity .3s; pointer-events: none;
+  }
+  .service-card:hover { transform: translateY(-4px); background: var(--bg-3); }
+  .service-card:hover::before { opacity: 1; }
+  .service-card:hover .service-arrow { transform: translateX(4px); color: var(--cyan); }
+  .service-card:hover .illu-pulse { animation-duration: 1.4s; }
+  .service-card:hover .illu-flow { animation-duration: 2s; }
+
+  /* Illustration container at top of each card */
+  .illu-wrap {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(76,201,240,0.04) 0%, transparent 100%);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .illu-wrap svg { width: 100%; height: 100%; display: block; }
+  /* Grid pattern underlay */
+  .illu-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: center;
+    pointer-events: none;
+  }
+
+  .service-body {
+    padding: 28px 32px 32px;
+  }
+  .service-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .service-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--fg-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+  .service-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(76, 201, 240, 0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(76, 201, 240, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+  .service-card h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .service-card p { color: var(--fg-dim); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+  .service-arrow { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--fg-faint); transition: transform .2s, color .2s; }
+
+  /* SVG animation classes */
+  @keyframes pulse-fade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  @keyframes dash-flow { to { stroke-dashoffset: -40; } }
+  @keyframes orbit-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes flow-particle { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+  .illu-pulse { animation: pulse-fade 2.4s ease-in-out infinite; }
+  .illu-pulse.delayed-1 { animation-delay: 0.4s; }
+  .illu-pulse.delayed-2 { animation-delay: 0.8s; }
+  .illu-pulse.delayed-3 { animation-delay: 1.2s; }
+  .illu-flow { stroke-dasharray: 4 6; animation: dash-flow 4s linear infinite; }
+  .illu-orbit { animation: orbit-rotate 18s linear infinite; transform-origin: center; transform-box: fill-box; }
+
+  /* Process timeline */
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+  .process-grid::before { content: ''; position: absolute; top: 26px; left: 6%; right: 6%; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent); }
+  .process-step { position: relative; }
+  .step-dot { width: 52px; height: 52px; border-radius: 50%; background: var(--bg); border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; margin: 0 auto 24px; position: relative; z-index: 2; color: var(--fg-dim); }
+  .step-dot.active { background: var(--grad); border-color: transparent; color: var(--bg); }
+  .process-step h4 { font-size: 17px; font-weight: 600; margin-bottom: 8px; text-align: center; }
+  .process-step p { color: var(--fg-dim); font-size: 14px; line-height: 1.5; text-align: center; }
+
+  .about { position: relative; z-index: 5; max-width: 1280px; margin: 160px auto 0; padding: 0 48px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
+  .about-content .quote { font-size: 30px; line-height: 1.3; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 28px; }
+  .about-content .quote .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .signature { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .sig-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--bg); font-size: 15px; }
+  .sig-text { font-size: 14px; color: var(--fg-dim); }
+  .sig-text strong { color: var(--fg); font-weight: 600; display: block; }
+  .about-link { color: var(--cyan); font-weight: 500; text-decoration: none; font-size: 15px; border-bottom: 1px solid var(--cyan); padding-bottom: 2px; }
+  .about-visual { aspect-ratio: 1; background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; position: relative; overflow: hidden; }
+  .about-visual canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .cta-section { position: relative; z-index: 5; max-width: 1280px; margin: 160px auto 80px; padding: 80px 48px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px; text-align: center; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: -100px; background: radial-gradient(circle at 30% 50%, var(--cyan-glow) 0%, transparent 50%), radial-gradient(circle at 70% 50%, var(--violet-glow) 0%, transparent 50%); z-index: 0; opacity: 0.6; }
+  .cta-section > * { position: relative; z-index: 1; }
+  .cta-section h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 20px; line-height: 1.1; }
+  .cta-section h2 .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cta-section p { color: var(--fg-dim); margin-bottom: 36px; font-size: 17px; max-width: 540px; margin-left: auto; margin-right: auto; }
+
+  footer { position: relative; z-index: 5; border-top: 1px solid var(--line); padding: 40px 48px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg-faint); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; max-width: 1280px; margin: 0 auto; }
+  footer a { color: var(--fg-dim); text-decoration: none; }
+  footer a:hover { color: var(--cyan); }
+
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    nav ul { display: none; }
+    .hero { padding: 70px 24px 80px; }
+    .stats { grid-template-columns: repeat(2, 1fr); padding: 28px 24px; gap: 24px; }
+    .logos { padding: 24px; gap: 24px; }
+    .section { padding: 0 24px; }
+    .service-grid { grid-template-columns: 1fr; }
+    .illu-wrap { height: 180px; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .process-grid::before { display: none; }
+    .about { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+    .cta-section { margin-left: 24px; margin-right: 24px; padding: 48px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="glow"></div>
+<div class="glow-2"></div>
+
+<nav>
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 30 30" fill="none">
+        <defs>
+          <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4cc9f0"/>
+            <stop offset="100%" stop-color="#8b5cf6"/>
+          </linearGradient>
+        </defs>
+        <circle cx="15" cy="6" r="2.5" fill="url(#lg1)"/>
+        <circle cx="6" cy="22" r="2.5" fill="url(#lg1)"/>
+        <circle cx="24" cy="22" r="2.5" fill="url(#lg1)"/>
+        <line x1="15" y1="6" x2="6" y2="22" stroke="url(#lg1)" stroke-width="1.2" opacity="0.7"/>
+        <line x1="15" y1="6" x2="24" y2="22" stroke="url(#lg1)" stroke-width="1.2" opacity="0.7"/>
+        <line x1="6" y1="22" x2="24" y2="22" stroke="url(#lg1)" stroke-width="1.2" opacity="0.7"/>
+      </svg>
+    </div>
+    <span class="logo-text">vnet<span>.</span>consult</span>
+  </div>
+  <ul>
+    <li><a href="#">Plateformes</a></li>
+    <li><a href="#">Approche</a></li>
+    <li><a href="#">Cas clients</a></li>
+    <li><a href="#">Formations</a></li>
+    <li><a href="#">Journal</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="lang"><span class="active">FR</span> · EN</span>
+    <a href="#" class="nav-cta">Démarrer un projet →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <a href="#" class="pill">
+    <span class="pill-badge">NEW</span>
+    <span>Programme d'accélération IA pour PME — Q3 2026</span>
+    <span class="pill-arrow">→</span>
+  </a>
+  <h1>L'infrastructure cloud,<br>conçue par un <span class="grad-text">ingénieur</span>.</h1>
+  <p class="lede">Architecture Azure, migrations Microsoft 365 et intégration IA pour les PME et grandes organisations. Pas de discours commercial — juste de l'ingénierie qui tient en production.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-primary">Planifier un appel découverte →</a>
+    <a href="#" class="btn-ghost">Voir les références</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div><div class="stat-num"><span class="accent">120+</span></div><div class="stat-label">Migrations Azure réalisées</div></div>
+  <div><div class="stat-num"><span class="accent">15</span> ans</div><div class="stat-label">D'ingénierie infrastructure</div></div>
+  <div><div class="stat-num"><span class="accent">99,9</span>%</div><div class="stat-label">SLA sur les plateformes opérées</div></div>
+  <div><div class="stat-num"><span class="accent">BE</span> / <span class="accent">LU</span></div><div class="stat-label">Belgique & Luxembourg</div></div>
+</div>
+
+<div class="logos">
+  <span class="logos-label">// Ils nous font confiance</span>
+  <span class="logo-placeholder">ACME Industries</span>
+  <span class="logo-placeholder">Belgian Steel Co.</span>
+  <span class="logo-placeholder">Pharma BX</span>
+  <span class="logo-placeholder">FinTrust Lux</span>
+  <span class="logo-placeholder">Atlas Group</span>
+</div>
+
+<section class="section">
+  <div class="section-eyebrow">// Plateformes</div>
+  <h2 class="section-title">Quatre domaines, une seule <span class="grad-text">discipline</span> : faire que ça tienne.</h2>
+  <p class="section-sub">Chaque mission part d'un audit honnête de l'existant. Pas de migration cloud parce que c'est tendance — uniquement quand ça crée de la valeur mesurable.</p>
+
+  <div class="service-grid">
+
+    <!-- ============ SERVICE 1: AZURE HUB-SPOKE ============ -->
+    <div class="service-card">
+      <div class="illu-wrap">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1-hub" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.25"/>
+            </linearGradient>
+            <linearGradient id="g1-spoke" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#4cc9f0" stop-opacity="0.12"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Subscription boundary -->
+          <rect x="20" y="20" width="360" height="160" rx="8" fill="none" stroke="#5a6178" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.5"/>
+          <text x="28" y="34" fill="#5a6178" font-family="JetBrains Mono, monospace" font-size="9" opacity="0.7">subscription: prod</text>
+
+          <!-- Connection lines (drawn first, behind boxes) -->
+          <line x1="200" y1="90" x2="90" y2="140" stroke="#4cc9f0" stroke-width="1.2" opacity="0.5" class="illu-flow"/>
+          <line x1="200" y1="90" x2="200" y2="140" stroke="#4cc9f0" stroke-width="1.2" opacity="0.5" class="illu-flow"/>
+          <line x1="200" y1="90" x2="310" y2="140" stroke="#4cc9f0" stroke-width="1.2" opacity="0.5" class="illu-flow"/>
+
+          <!-- HUB VNet (center top) -->
+          <rect x="155" y="55" width="90" height="42" rx="6" fill="url(#g1-hub)" stroke="#4cc9f0" stroke-width="1.2"/>
+          <circle cx="170" cy="70" r="2.5" fill="#4cc9f0" class="illu-pulse"/>
+          <circle cx="180" cy="70" r="2.5" fill="#4cc9f0" class="illu-pulse delayed-1"/>
+          <circle cx="170" cy="82" r="2.5" fill="#8b5cf6" class="illu-pulse delayed-2"/>
+          <text x="200" y="78" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500" text-anchor="middle">HUB</text>
+          <text x="200" y="90" fill="#8a92a7" font-family="JetBrains Mono, monospace" font-size="7" text-anchor="middle">10.0.0.0/16</text>
+
+          <!-- SPOKE 1: prod -->
+          <rect x="45" y="135" width="90" height="38" rx="6" fill="url(#g1-spoke)" stroke="#8b5cf6" stroke-width="1" opacity="0.85"/>
+          <circle cx="58" cy="148" r="2" fill="#8b5cf6" class="illu-pulse delayed-1"/>
+          <text x="90" y="154" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500" text-anchor="middle">spoke-prod</text>
+          <text x="90" y="165" fill="#8a92a7" font-family="JetBrains Mono, monospace" font-size="7" text-anchor="middle">10.1.0.0/16</text>
+
+          <!-- SPOKE 2: dev -->
+          <rect x="155" y="135" width="90" height="38" rx="6" fill="url(#g1-spoke)" stroke="#8b5cf6" stroke-width="1" opacity="0.85"/>
+          <circle cx="168" cy="148" r="2" fill="#8b5cf6" class="illu-pulse delayed-2"/>
+          <text x="200" y="154" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500" text-anchor="middle">spoke-dev</text>
+          <text x="200" y="165" fill="#8a92a7" font-family="JetBrains Mono, monospace" font-size="7" text-anchor="middle">10.2.0.0/16</text>
+
+          <!-- SPOKE 3: shared -->
+          <rect x="265" y="135" width="90" height="38" rx="6" fill="url(#g1-spoke)" stroke="#8b5cf6" stroke-width="1" opacity="0.85"/>
+          <circle cx="278" cy="148" r="2" fill="#8b5cf6" class="illu-pulse delayed-3"/>
+          <text x="310" y="154" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500" text-anchor="middle">spoke-shared</text>
+          <text x="310" y="165" fill="#8a92a7" font-family="JetBrains Mono, monospace" font-size="7" text-anchor="middle">10.3.0.0/16</text>
+
+          <!-- Firewall icon on hub -->
+          <g transform="translate(218, 60)">
+            <rect x="0" y="0" width="14" height="11" rx="1.5" fill="none" stroke="#4cc9f0" stroke-width="0.8"/>
+            <line x1="0" y1="5.5" x2="14" y2="5.5" stroke="#4cc9f0" stroke-width="0.6"/>
+            <line x1="3.5" y1="0" x2="3.5" y2="11" stroke="#4cc9f0" stroke-width="0.6"/>
+            <line x1="10.5" y1="0" x2="10.5" y2="11" stroke="#4cc9f0" stroke-width="0.6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="service-body">
+        <div class="service-header">
+          <span class="service-tag">01 / cloud-azure</span>
+          <span class="service-pill">Hub-Spoke</span>
+        </div>
+        <h3>Architecture Azure</h3>
+        <p>Landing zones CAF, IaC en Terraform, gouvernance, FinOps. Une plateforme cloud qui supporte vos applications critiques sans surprises de facturation.</p>
+        <span class="service-arrow">En savoir plus →</span>
+      </div>
+    </div>
+
+    <!-- ============ SERVICE 2: M365 / ENTRA IDENTITY ============ -->
+    <div class="service-card">
+      <div class="illu-wrap">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="g2-core" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="g2-app" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#4cc9f0" stop-opacity="0.08"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Radial halo around Entra core -->
+          <circle cx="200" cy="100" r="60" fill="url(#g2-core)"/>
+
+          <!-- Orbit ring -->
+          <circle cx="200" cy="100" r="68" fill="none" stroke="#5a6178" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.4"/>
+
+          <!-- Conditional access rays -->
+          <g class="illu-orbit">
+            <line x1="200" y1="100" x2="270" y2="100" stroke="#8b5cf6" stroke-width="1" opacity="0.4" stroke-dasharray="3 3"/>
+            <line x1="200" y1="100" x2="130" y2="100" stroke="#8b5cf6" stroke-width="1" opacity="0.4" stroke-dasharray="3 3"/>
+            <line x1="200" y1="100" x2="200" y2="30" stroke="#8b5cf6" stroke-width="1" opacity="0.4" stroke-dasharray="3 3"/>
+            <line x1="200" y1="100" x2="200" y2="170" stroke="#8b5cf6" stroke-width="1" opacity="0.4" stroke-dasharray="3 3"/>
+          </g>
+
+          <!-- Apps orbiting around -->
+          <!-- Teams (top) -->
+          <g transform="translate(200, 30)">
+            <circle r="13" fill="url(#g2-app)" stroke="#4cc9f0" stroke-width="1" class="illu-pulse"/>
+            <text y="3" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="7" font-weight="500" text-anchor="middle">Teams</text>
+          </g>
+          <!-- Intune (right) -->
+          <g transform="translate(290, 100)">
+            <circle r="13" fill="url(#g2-app)" stroke="#4cc9f0" stroke-width="1" class="illu-pulse delayed-1"/>
+            <text y="3" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="7" font-weight="500" text-anchor="middle">Intune</text>
+          </g>
+          <!-- Purview (bottom) -->
+          <g transform="translate(200, 170)">
+            <circle r="13" fill="url(#g2-app)" stroke="#4cc9f0" stroke-width="1" class="illu-pulse delayed-2"/>
+            <text y="3" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="7" font-weight="500" text-anchor="middle">Purview</text>
+          </g>
+          <!-- Outlook (left) -->
+          <g transform="translate(110, 100)">
+            <circle r="13" fill="url(#g2-app)" stroke="#4cc9f0" stroke-width="1" class="illu-pulse delayed-3"/>
+            <text y="3" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="7" font-weight="500" text-anchor="middle">Mail</text>
+          </g>
+
+          <!-- Diagonal smaller apps -->
+          <g transform="translate(248, 52)">
+            <circle r="9" fill="url(#g2-app)" stroke="#4cc9f0" stroke-width="0.8" opacity="0.7"/>
+            <text y="2.5" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="5.5" text-anchor="middle">SP</text>
+          </g>
+          <g transform="translate(152, 148)">
+            <circle r="9" fill="url(#g2-app)" stroke="#4cc9f0" stroke-width="0.8" opacity="0.7"/>
+            <text y="2.5" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="5.5" text-anchor="middle">OD</text>
+          </g>
+
+          <!-- Entra core (center): shield with check -->
+          <g transform="translate(200, 100)">
+            <circle r="28" fill="#0e1220" stroke="#8b5cf6" stroke-width="1.5"/>
+            <path d="M0 -16 L14 -10 L14 4 Q14 14 0 18 Q-14 14 -14 4 L-14 -10 Z" fill="#8b5cf6" fill-opacity="0.2" stroke="#8b5cf6" stroke-width="1.2"/>
+            <path d="M-6 1 L-2 5 L7 -5" fill="none" stroke="#4cc9f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <text x="200" y="148" fill="#8a92a7" font-family="JetBrains Mono, monospace" font-size="8" text-anchor="middle">Entra ID</text>
+        </svg>
+      </div>
+      <div class="service-body">
+        <div class="service-header">
+          <span class="service-tag">02 / microsoft-365</span>
+          <span class="service-pill">Identity-first</span>
+        </div>
+        <h3>Microsoft 365 & Entra</h3>
+        <p>Déploiement Entra ID, Intune, Purview, Teams. Workplace moderne, identité conditionnelle, conformité documentée — et MDM qui marche vraiment.</p>
+        <span class="service-arrow">En savoir plus →</span>
+      </div>
+    </div>
+
+    <!-- ============ SERVICE 3: RAG PIPELINE ============ -->
+    <div class="service-card">
+      <div class="illu-wrap">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g3-flow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#4cc9f0"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+            <linearGradient id="g3-box" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Pipeline label at top -->
+          <text x="200" y="32" fill="#5a6178" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" letter-spacing="2">RETRIEVAL · AUGMENTED · GENERATION</text>
+
+          <!-- Connection line (the spine) -->
+          <line x1="40" y1="105" x2="360" y2="105" stroke="url(#g3-flow)" stroke-width="1.5" opacity="0.4"/>
+          <!-- Animated dashed overlay for "flow" -->
+          <line x1="40" y1="105" x2="360" y2="105" stroke="#4cc9f0" stroke-width="2" opacity="0.7" class="illu-flow"/>
+
+          <!-- Stage 1: Prompt -->
+          <g transform="translate(50, 105)">
+            <rect x="-25" y="-22" width="50" height="44" rx="4" fill="url(#g3-box)" stroke="#4cc9f0" stroke-width="1.2"/>
+            <!-- text lines -->
+            <line x1="-15" y1="-10" x2="15" y2="-10" stroke="#4cc9f0" stroke-width="1" opacity="0.7"/>
+            <line x1="-15" y1="-4" x2="10" y2="-4" stroke="#4cc9f0" stroke-width="1" opacity="0.5"/>
+            <line x1="-15" y1="2" x2="14" y2="2" stroke="#4cc9f0" stroke-width="1" opacity="0.6"/>
+            <line x1="-15" y1="8" x2="6" y2="8" stroke="#4cc9f0" stroke-width="1" opacity="0.4"/>
+            <text x="0" y="42" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">prompt</text>
+          </g>
+
+          <!-- Stage 2: Embed -->
+          <g transform="translate(135, 105)">
+            <rect x="-22" y="-22" width="44" height="44" rx="4" fill="url(#g3-box)" stroke="#4cc9f0" stroke-width="1.2"/>
+            <!-- vector dots -->
+            <circle cx="-10" cy="-10" r="1.6" fill="#4cc9f0" class="illu-pulse"/>
+            <circle cx="0" cy="-10" r="1.6" fill="#8b5cf6" class="illu-pulse delayed-1"/>
+            <circle cx="10" cy="-10" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-2"/>
+            <circle cx="-10" cy="0" r="1.6" fill="#8b5cf6" class="illu-pulse delayed-2"/>
+            <circle cx="0" cy="0" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-3"/>
+            <circle cx="10" cy="0" r="1.6" fill="#8b5cf6"  class="illu-pulse"/>
+            <circle cx="-10" cy="10" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-1"/>
+            <circle cx="0" cy="10" r="1.6" fill="#8b5cf6" class="illu-pulse delayed-3"/>
+            <circle cx="10" cy="10" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-2"/>
+            <text x="0" y="42" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">embed</text>
+          </g>
+
+          <!-- Stage 3: Vector DB (cylinder) -->
+          <g transform="translate(220, 105)">
+            <!-- Cylinder body -->
+            <path d="M -22 -16 L -22 16 Q -22 22 0 22 Q 22 22 22 16 L 22 -16" fill="url(#g3-box)" stroke="#8b5cf6" stroke-width="1.2"/>
+            <ellipse cx="0" cy="-16" rx="22" ry="6" fill="url(#g3-box)" stroke="#8b5cf6" stroke-width="1.2"/>
+            <ellipse cx="0" cy="-10" rx="20" ry="4.5" fill="none" stroke="#8b5cf6" stroke-width="0.6" opacity="0.5"/>
+            <ellipse cx="0" cy="-2" rx="20" ry="4.5" fill="none" stroke="#8b5cf6" stroke-width="0.6" opacity="0.5"/>
+            <ellipse cx="0" cy="6" rx="20" ry="4.5" fill="none" stroke="#8b5cf6" stroke-width="0.6" opacity="0.5"/>
+            <text x="0" y="42" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">vector-db</text>
+          </g>
+
+          <!-- Stage 4: LLM -->
+          <g transform="translate(305, 105)">
+            <rect x="-22" y="-22" width="44" height="44" rx="4" fill="url(#g3-box)" stroke="#8b5cf6" stroke-width="1.2"/>
+            <!-- neural net pattern -->
+            <circle cx="-12" cy="-10" r="2" fill="#8b5cf6"/>
+            <circle cx="-12" cy="0" r="2" fill="#8b5cf6"/>
+            <circle cx="-12" cy="10" r="2" fill="#8b5cf6"/>
+            <circle cx="0" cy="-6" r="2" fill="#4cc9f0"/>
+            <circle cx="0" cy="6" r="2" fill="#4cc9f0"/>
+            <circle cx="12" cy="0" r="2" fill="#8b5cf6"/>
+            <line x1="-10" y1="-10" x2="-2" y2="-6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"/>
+            <line x1="-10" y1="0" x2="-2" y2="-6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"/>
+            <line x1="-10" y1="0" x2="-2" y2="6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"/>
+            <line x1="-10" y1="10" x2="-2" y2="6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"/>
+            <line x1="2" y1="-6" x2="10" y2="0" stroke="#4cc9f0" stroke-width="0.5" opacity="0.6"/>
+            <line x1="2" y1="6" x2="10" y2="0" stroke="#4cc9f0" stroke-width="0.5" opacity="0.6"/>
+            <text x="0" y="42" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">LLM</text>
+          </g>
+
+          <!-- Arrows between -->
+          <text x="92" y="108" fill="#5a6178" font-family="monospace" font-size="12" text-anchor="middle">→</text>
+          <text x="178" y="108" fill="#5a6178" font-family="monospace" font-size="12" text-anchor="middle">→</text>
+          <text x="262" y="108" fill="#5a6178" font-family="monospace" font-size="12" text-anchor="middle">→</text>
+        </svg>
+      </div>
+      <div class="service-body">
+        <div class="service-header">
+          <span class="service-tag">03 / intelligence-artificielle</span>
+          <span class="service-pill">RAG · Copilot</span>
+        </div>
+        <h3>IA & Copilot</h3>
+        <p>Azure OpenAI, Copilot Studio, RAG sur vos données. Cas d'usage cadrés, garde-fous, gouvernance — pas de pilote qui finit en démo PowerPoint.</p>
+        <span class="service-arrow">En savoir plus →</span>
+      </div>
+    </div>
+
+    <!-- ============ SERVICE 4: LEARNING PATH ============ -->
+    <div class="service-card">
+      <div class="illu-wrap">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g4-path" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#4cc9f0"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+            <linearGradient id="g4-mod" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.12"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Path label -->
+          <text x="200" y="32" fill="#5a6178" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" letter-spacing="2">PARCOURS · CERTIFIANT</text>
+
+          <!-- Curved path from start to end -->
+          <path d="M 40 105 Q 100 60 160 105 T 280 105 T 360 105" fill="none" stroke="url(#g4-path)" stroke-width="1.5" opacity="0.4"/>
+          <path d="M 40 105 Q 100 60 160 105 T 280 105 T 360 105" fill="none" stroke="#4cc9f0" stroke-width="2" opacity="0.6" stroke-dasharray="4 6" class="illu-flow"/>
+
+          <!-- Module 1: foundations -->
+          <g transform="translate(50, 105)">
+            <rect x="-22" y="-18" width="44" height="36" rx="4" fill="url(#g4-mod)" stroke="#4cc9f0" stroke-width="1"/>
+            <line x1="-12" y1="-8" x2="12" y2="-8" stroke="#4cc9f0" stroke-width="1" opacity="0.7"/>
+            <line x1="-12" y1="-2" x2="8" y2="-2" stroke="#4cc9f0" stroke-width="1" opacity="0.5"/>
+            <line x1="-12" y1="4" x2="10" y2="4" stroke="#4cc9f0" stroke-width="1" opacity="0.5"/>
+            <text x="0" y="38" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="8.5" text-anchor="middle">Foundations</text>
+          </g>
+
+          <!-- Module 2: deep dive -->
+          <g transform="translate(160, 105)">
+            <rect x="-22" y="-18" width="44" height="36" rx="4" fill="url(#g4-mod)" stroke="#4cc9f0" stroke-width="1"/>
+            <!-- code brackets -->
+            <text x="0" y="3" fill="#4cc9f0" font-family="JetBrains Mono, monospace" font-size="14" font-weight="600" text-anchor="middle">{}</text>
+            <text x="0" y="38" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="8.5" text-anchor="middle">Hands-on</text>
+          </g>
+
+          <!-- Module 3: project -->
+          <g transform="translate(270, 105)">
+            <rect x="-22" y="-18" width="44" height="36" rx="4" fill="url(#g4-mod)" stroke="#8b5cf6" stroke-width="1"/>
+            <!-- gears/network -->
+            <circle cx="-7" cy="0" r="3" fill="none" stroke="#8b5cf6" stroke-width="0.8"/>
+            <circle cx="7" cy="0" r="3" fill="none" stroke="#8b5cf6" stroke-width="0.8"/>
+            <line x1="-4" y1="0" x2="4" y2="0" stroke="#8b5cf6" stroke-width="0.8"/>
+            <text x="0" y="38" fill="#eef1f8" font-family="JetBrains Mono, monospace" font-size="8.5" text-anchor="middle">Project</text>
+          </g>
+
+          <!-- Certification badge at the end -->
+          <g transform="translate(355, 105)">
+            <!-- ribbon -->
+            <path d="M -8 8 L -8 22 L -3 17 L 3 17 L 8 22 L 8 8 Z" fill="#8b5cf6" opacity="0.6"/>
+            <!-- medal circle -->
+            <circle r="14" fill="url(#g4-mod)" stroke="#8b5cf6" stroke-width="1.5" class="illu-pulse"/>
+            <!-- star inside -->
+            <path d="M 0 -7 L 1.8 -2.2 L 7 -2.2 L 2.7 1 L 4.4 6 L 0 3 L -4.4 6 L -2.7 1 L -7 -2.2 L -1.8 -2.2 Z" fill="#4cc9f0"/>
+          </g>
+
+          <!-- Progress arrows -->
+          <text x="105" y="108" fill="#5a6178" font-family="monospace" font-size="11" text-anchor="middle">→</text>
+          <text x="215" y="108" fill="#5a6178" font-family="monospace" font-size="11" text-anchor="middle">→</text>
+          <text x="320" y="108" fill="#5a6178" font-family="monospace" font-size="11" text-anchor="middle">→</text>
+        </svg>
+      </div>
+      <div class="service-body">
+        <div class="service-header">
+          <span class="service-tag">04 / formations</span>
+          <span class="service-pill">BE · LU · Remote</span>
+        </div>
+        <h3>Formations & Séminaires</h3>
+        <p>Programmes Azure, Terraform, M365 Admin, sécurité Entra. Sessions sur mesure pour vos équipes, en présentiel BE/LU ou à distance.</p>
+        <span class="service-arrow">En savoir plus →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-eyebrow">// Méthode</div>
+  <h2 class="section-title">Une mission, <span class="grad-text">quatre temps</span>.</h2>
+  <p class="section-sub">Chaque engagement suit la même discipline : comprendre avant de proposer, cadrer avant de livrer, transférer avant de partir.</p>
+  <div class="process-grid">
+    <div class="process-step"><div class="step-dot active">01</div><h4>Discovery</h4><p>Audit honnête de l'existant, des contraintes et de vos objectifs réels.</p></div>
+    <div class="process-step"><div class="step-dot active">02</div><h4>Architecture</h4><p>Conception documentée, alternatives chiffrées, validation avec vos équipes.</p></div>
+    <div class="process-step"><div class="step-dot active">03</div><h4>Build</h4><p>Implémentation IaC, tests, mise en production progressive et observabilité.</p></div>
+    <div class="process-step"><div class="step-dot">04</div><h4>Transfert</h4><p>Formation, runbooks et autonomie complète de vos équipes en sortie.</p></div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-content">
+    <div class="section-eyebrow">// À propos</div>
+    <p class="quote">« Quinze ans d'infrastructure m'ont appris une chose : la <span class="grad-text">complexité</span> n'est jamais un objectif. C'est un constat d'échec. »</p>
+    <div class="signature">
+      <div class="sig-avatar">OM</div>
+      <div class="sig-text"><strong>Olivier Malfroidt</strong>Fondateur · Architecte cloud Azure</div>
+    </div>
+    <a href="#" class="about-link">Lire le manifeste complet →</a>
+  </div>
+  <div class="about-visual"><canvas id="about-canvas"></canvas></div>
+</section>
+
+<section class="cta-section">
+  <h2>Prêt à connecter <span class="grad-text">le tout</span> ?</h2>
+  <p>Un appel de 30 minutes pour décrire votre contexte. Nous revenons avec un cadrage écrit sous 48 h, sans engagement.</p>
+  <a href="#" class="btn-primary">Réserver un créneau →</a>
+</section>
+
+<footer>
+  <div>© 2026 VNET Consult — Bruxelles, BE · GDPR-compliant · <a href="#">Mentions légales</a></div>
+  <div><a href="mailto:contact@vnetconsult.be">contact@vnetconsult.be</a> · <a href="#">LinkedIn</a> · +32 473 33 24 74</div>
+</footer>
+
+<script>
+// Background animation: same dual-layer as maquette 4
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let nodes = [], flowPaths = [], particles = [];
+let mouse = { x: -1000, y: -1000 };
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  initBackground();
+}
+function initBackground() {
+  nodes = [];
+  const count = Math.floor((canvas.width * canvas.height) / 22000);
+  for (let i = 0; i < count; i++) {
+    nodes.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: (Math.random()-0.5)*0.22, vy: (Math.random()-0.5)*0.22, r: Math.random()*1.2+0.6, pulse: Math.random()*Math.PI*2 });
+  }
+  flowPaths = []; particles = [];
+  const anchors = [];
+  for (let i = 0; i < 5; i++) anchors.push({ x: (0.1+0.8*Math.random())*canvas.width, y: (0.1+0.8*Math.random())*canvas.height });
+  for (let i = 0; i < anchors.length; i++) {
+    const targets = [(i+1)%anchors.length, (i+2)%anchors.length];
+    for (const j of targets) {
+      if (i >= j) continue;
+      const n1 = anchors[i], n2 = anchors[j];
+      flowPaths.push({ n1, n2, cpx: (n1.x+n2.x)/2 + (Math.random()-0.5)*240, cpy: (n1.y+n2.y)/2 + (Math.random()-0.5)*240 });
+    }
+  }
+  for (const path of flowPaths) {
+    const c = 1 + Math.floor(Math.random()*2);
+    for (let i = 0; i < c; i++) particles.push({ path, t: Math.random(), speed: 0.0012+Math.random()*0.0025, color: Math.random()<0.55 ? '#4cc9f0' : '#8b5cf6' });
+  }
+}
+function pt(p, t) { const u = 1-t; return { x: u*u*p.n1.x + 2*u*t*p.cpx + t*t*p.n2.x, y: u*u*p.n1.y + 2*u*t*p.cpy + t*t*p.n2.y }; }
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const n of nodes) {
+    n.x += n.vx; n.y += n.vy; n.pulse += 0.02;
+    if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+  }
+  for (let i = 0; i < nodes.length; i++)
+    for (let j = i+1; j < nodes.length; j++) {
+      const d = Math.hypot(nodes[i].x-nodes[j].x, nodes[i].y-nodes[j].y);
+      if (d < 130) {
+        ctx.strokeStyle = `rgba(76, 201, 240, ${(1-d/130)*0.13})`;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+      }
+    }
+  for (const n of nodes) {
+    const d = Math.hypot(n.x-mouse.x, n.y-mouse.y);
+    if (d < 220) {
+      ctx.strokeStyle = `rgba(139, 92, 246, ${(1-d/220)*0.45})`;
+      ctx.lineWidth = 0.7;
+      ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+    }
+  }
+  for (const p of flowPaths) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(p.n1.x, p.n1.y); ctx.quadraticCurveTo(p.cpx, p.cpy, p.n2.x, p.n2.y); ctx.stroke();
+  }
+  for (const part of particles) {
+    part.t += part.speed; if (part.t > 1) part.t = 0;
+    for (let i = 0; i < 14; i++) {
+      const t = part.t - i*0.008;
+      if (t < 0) continue;
+      const p = pt(part.path, t);
+      const a = (1-i/14) * 0.65;
+      ctx.fillStyle = part.color + Math.floor(a*255).toString(16).padStart(2, '0');
+      ctx.beginPath(); ctx.arc(p.x, p.y, 2-i*0.1, 0, Math.PI*2); ctx.fill();
+    }
+  }
+  for (const n of nodes) {
+    const pulse = (Math.sin(n.pulse)+1)*0.5;
+    ctx.fillStyle = `rgba(76, 201, 240, ${0.35+pulse*0.35})`;
+    ctx.beginPath(); ctx.arc(n.x, n.y, n.r+pulse*0.4, 0, Math.PI*2); ctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize', resize);
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+window.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+resize(); draw();
+
+// About canvas (same as before)
+(function() {
+  const c = document.getElementById('about-canvas');
+  const cx = c.getContext('2d');
+  let n = [], paths = [], parts = [];
+  function r() { c.width = c.offsetWidth; c.height = c.offsetHeight; init(); }
+  function init() {
+    n = [
+      { x: c.width*0.5, y: c.height*0.25 },
+      { x: c.width*0.2, y: c.height*0.55 },
+      { x: c.width*0.8, y: c.height*0.55 },
+      { x: c.width*0.35, y: c.height*0.82 },
+      { x: c.width*0.65, y: c.height*0.82 },
+    ];
+    paths = [[0,1],[0,2],[1,3],[2,4],[3,4],[1,2]].map(([a,b]) => ({ n1: n[a], n2: n[b], cpx: (n[a].x+n[b].x)/2 + (Math.random()-0.5)*50, cpy: (n[a].y+n[b].y)/2 + (Math.random()-0.5)*50 }));
+    parts = [];
+    for (const p of paths) parts.push({ path: p, t: Math.random(), speed: 0.003+Math.random()*0.003, color: Math.random()<0.5 ? '#4cc9f0' : '#8b5cf6' });
+  }
+  function pt(p, t) { const u = 1-t; return { x: u*u*p.n1.x+2*u*t*p.cpx+t*t*p.n2.x, y: u*u*p.n1.y+2*u*t*p.cpy+t*t*p.n2.y }; }
+  function loop() {
+    cx.clearRect(0, 0, c.width, c.height);
+    for (const p of paths) {
+      cx.strokeStyle = 'rgba(255,255,255,0.08)'; cx.lineWidth = 1;
+      cx.beginPath(); cx.moveTo(p.n1.x, p.n1.y); cx.quadraticCurveTo(p.cpx, p.cpy, p.n2.x, p.n2.y); cx.stroke();
+    }
+    for (const part of parts) {
+      part.t += part.speed; if (part.t > 1) part.t = 0;
+      for (let i = 0; i < 10; i++) {
+        const t = part.t - i*0.012; if (t < 0) continue;
+        const p = pt(part.path, t);
+        const a = (1-i/10) * 0.85;
+        cx.fillStyle = part.color + Math.floor(a*255).toString(16).padStart(2, '0');
+        cx.beginPath(); cx.arc(p.x, p.y, 2.2-i*0.15, 0, Math.PI*2); cx.fill();
+      }
+    }
+    for (const node of n) {
+      const grad = cx.createRadialGradient(node.x, node.y, 0, node.x, node.y, 14);
+      grad.addColorStop(0, 'rgba(76, 201, 240, 0.4)');
+      grad.addColorStop(1, 'rgba(76, 201, 240, 0)');
+      cx.fillStyle = grad; cx.beginPath(); cx.arc(node.x, node.y, 14, 0, Math.PI*2); cx.fill();
+      cx.fillStyle = '#fff'; cx.beginPath(); cx.arc(node.x, node.y, 3, 0, Math.PI*2); cx.fill();
+    }
+    requestAnimationFrame(loop);
+  }
+  window.addEventListener('resize', r); r(); loop();
+})();
+</script>
+
+</body>
+</html>

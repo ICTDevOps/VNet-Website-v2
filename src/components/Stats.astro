@@ -1,0 +1,63 @@
+---
+const stats = [
+  { num: "120+", suffix: "", label: "Migrations Azure réalisées" },
+  { num: "15", suffix: " ans", label: "D'ingénierie infrastructure" },
+  { num: "99,9", suffix: "%", label: "SLA sur les plateformes opérées" },
+  { num: "BE", suffix: " / LU", label: "Belgique & Luxembourg" },
+];
+---
+
+<div class="stats">
+  {
+    stats.map((s) => (
+      <div>
+        <div class="stat-num">
+          <span class="accent">{s.num}</span>
+          {s.suffix && <Fragment set:html={s.suffix.replace(/(BE|LU)/g, '<span class="accent">$1</span>')} />}
+        </div>
+        <div class="stat-label">{s.label}</div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .stats {
+    position: relative;
+    z-index: 5;
+    max-width: 1280px;
+    margin: 40px auto 0;
+    padding: 36px 48px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+  .stat-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--fg);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .stat-num :global(.accent) {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--fg-dim);
+  }
+
+  @media (max-width: 900px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 28px 24px;
+      gap: 24px;
+    }
+  }
+</style>

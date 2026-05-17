@@ -1,0 +1,156 @@
+---
+const steps = [
+  {
+    num: "01",
+    active: true,
+    title: "Discovery",
+    body: "Audit honnête de l'existant, des contraintes et de vos objectifs réels.",
+  },
+  {
+    num: "02",
+    active: true,
+    title: "Architecture",
+    body: "Conception documentée, alternatives chiffrées, validation avec vos équipes.",
+  },
+  {
+    num: "03",
+    active: true,
+    title: "Build",
+    body: "Implémentation IaC, tests, mise en production progressive et observabilité.",
+  },
+  {
+    num: "04",
+    active: false,
+    title: "Transfert",
+    body: "Formation, runbooks et autonomie complète de vos équipes en sortie.",
+  },
+];
+---
+
+<section class="section" id="approche">
+  <div class="section-eyebrow">// Méthode</div>
+  <h2 class="section-title">
+    Une mission, <span class="grad-text">quatre temps</span>.
+  </h2>
+  <p class="section-sub">
+    Chaque engagement suit la même discipline : comprendre avant de proposer,
+    cadrer avant de livrer, transférer avant de partir.
+  </p>
+  <div class="process-grid">
+    {
+      steps.map((s) => (
+        <div class="process-step">
+          <div class={`step-dot${s.active ? " active" : ""}`}>{s.num}</div>
+          <h4>{s.title}</h4>
+          <p>{s.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    position: relative;
+    z-index: 5;
+    max-width: 1280px;
+    margin: 140px auto 0;
+    padding: 0 48px;
+  }
+  .section-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 760px;
+    line-height: 1.05;
+  }
+  .section-sub {
+    color: var(--fg-dim);
+    font-size: 17px;
+    max-width: 620px;
+    margin-bottom: 56px;
+    line-height: 1.55;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    position: relative;
+  }
+  .process-grid::before {
+    content: "";
+    position: absolute;
+    top: 26px;
+    left: 6%;
+    right: 6%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--cyan),
+      var(--violet),
+      transparent
+    );
+  }
+  .process-step {
+    position: relative;
+  }
+  .step-dot {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+    font-size: 13px;
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 2;
+    color: var(--fg-dim);
+  }
+  .step-dot.active {
+    background: var(--grad);
+    border-color: transparent;
+    color: var(--bg);
+  }
+  .process-step h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .process-step p {
+    color: var(--fg-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .section {
+      padding: 0 24px;
+    }
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .process-grid::before {
+      display: none;
+    }
+  }
+</style>

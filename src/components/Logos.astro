@@ -1,0 +1,54 @@
+---
+const logos = [
+  "ACME Industries",
+  "Belgian Steel Co.",
+  "Pharma BX",
+  "FinTrust Lux",
+  "Atlas Group",
+];
+---
+
+<div class="logos">
+  <span class="logos-label">// Ils nous font confiance</span>
+  {logos.map((name) => <span class="logo-placeholder">{name}</span>)}
+</div>
+
+<style>
+  .logos {
+    position: relative;
+    z-index: 5;
+    padding: 32px 48px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .logos-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .logo-placeholder {
+    font-weight: 600;
+    color: var(--fg-dim);
+    font-size: 15px;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+  }
+  .logo-placeholder:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    .logos {
+      padding: 24px;
+      gap: 24px;
+    }
+  }
+</style>
