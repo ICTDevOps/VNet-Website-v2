@@ -1,0 +1,198 @@
+---
+---
+
+<svg
+  viewBox="0 0 400 200"
+  preserveAspectRatio="xMidYMid meet"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="g3-flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4cc9f0"></stop>
+      <stop offset="100%" stop-color="#8b5cf6"></stop>
+    </linearGradient>
+    <linearGradient id="g3-box" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.2"></stop>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.15"></stop>
+    </linearGradient>
+  </defs>
+
+  <text
+    x="200"
+    y="32"
+    fill="#5a6178"
+    font-family="JetBrains Mono, monospace"
+    font-size="9"
+    text-anchor="middle"
+    letter-spacing="2">RETRIEVAL · AUGMENTED · GENERATION</text
+  >
+
+  <line
+    x1="40"
+    y1="105"
+    x2="360"
+    y2="105"
+    stroke="url(#g3-flow)"
+    stroke-width="1.5"
+    opacity="0.4"></line>
+  <line
+    x1="40"
+    y1="105"
+    x2="360"
+    y2="105"
+    stroke="#4cc9f0"
+    stroke-width="2"
+    opacity="0.7"
+    class="illu-flow"></line>
+
+  <g transform="translate(50, 105)">
+    <rect
+      x="-25"
+      y="-22"
+      width="50"
+      height="44"
+      rx="4"
+      fill="url(#g3-box)"
+      stroke="#4cc9f0"
+      stroke-width="1.2"></rect>
+    <line x1="-15" y1="-10" x2="15" y2="-10" stroke="#4cc9f0" stroke-width="1" opacity="0.7"
+    ></line>
+    <line x1="-15" y1="-4" x2="10" y2="-4" stroke="#4cc9f0" stroke-width="1" opacity="0.5"
+    ></line>
+    <line x1="-15" y1="2" x2="14" y2="2" stroke="#4cc9f0" stroke-width="1" opacity="0.6"
+    ></line>
+    <line x1="-15" y1="8" x2="6" y2="8" stroke="#4cc9f0" stroke-width="1" opacity="0.4"
+    ></line>
+    <text
+      x="0"
+      y="42"
+      fill="#eef1f8"
+      font-family="JetBrains Mono, monospace"
+      font-size="9"
+      text-anchor="middle">prompt</text
+    >
+  </g>
+
+  <g transform="translate(135, 105)">
+    <rect
+      x="-22"
+      y="-22"
+      width="44"
+      height="44"
+      rx="4"
+      fill="url(#g3-box)"
+      stroke="#4cc9f0"
+      stroke-width="1.2"></rect>
+    <circle cx="-10" cy="-10" r="1.6" fill="#4cc9f0" class="illu-pulse"></circle>
+    <circle cx="0" cy="-10" r="1.6" fill="#8b5cf6" class="illu-pulse delayed-1"
+    ></circle>
+    <circle cx="10" cy="-10" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-2"
+    ></circle>
+    <circle cx="-10" cy="0" r="1.6" fill="#8b5cf6" class="illu-pulse delayed-2"
+    ></circle>
+    <circle cx="0" cy="0" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-3"
+    ></circle>
+    <circle cx="10" cy="0" r="1.6" fill="#8b5cf6" class="illu-pulse"></circle>
+    <circle cx="-10" cy="10" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-1"
+    ></circle>
+    <circle cx="0" cy="10" r="1.6" fill="#8b5cf6" class="illu-pulse delayed-3"
+    ></circle>
+    <circle cx="10" cy="10" r="1.6" fill="#4cc9f0" class="illu-pulse delayed-2"
+    ></circle>
+    <text
+      x="0"
+      y="42"
+      fill="#eef1f8"
+      font-family="JetBrains Mono, monospace"
+      font-size="9"
+      text-anchor="middle">embed</text
+    >
+  </g>
+
+  <g transform="translate(220, 105)">
+    <path
+      d="M -22 -16 L -22 16 Q -22 22 0 22 Q 22 22 22 16 L 22 -16"
+      fill="url(#g3-box)"
+      stroke="#8b5cf6"
+      stroke-width="1.2"></path>
+    <ellipse cx="0" cy="-16" rx="22" ry="6" fill="url(#g3-box)" stroke="#8b5cf6" stroke-width="1.2"
+    ></ellipse>
+    <ellipse cx="0" cy="-10" rx="20" ry="4.5" fill="none" stroke="#8b5cf6" stroke-width="0.6" opacity="0.5"
+    ></ellipse>
+    <ellipse cx="0" cy="-2" rx="20" ry="4.5" fill="none" stroke="#8b5cf6" stroke-width="0.6" opacity="0.5"
+    ></ellipse>
+    <ellipse cx="0" cy="6" rx="20" ry="4.5" fill="none" stroke="#8b5cf6" stroke-width="0.6" opacity="0.5"
+    ></ellipse>
+    <text
+      x="0"
+      y="42"
+      fill="#eef1f8"
+      font-family="JetBrains Mono, monospace"
+      font-size="9"
+      text-anchor="middle">vector-db</text
+    >
+  </g>
+
+  <g transform="translate(305, 105)">
+    <rect
+      x="-22"
+      y="-22"
+      width="44"
+      height="44"
+      rx="4"
+      fill="url(#g3-box)"
+      stroke="#8b5cf6"
+      stroke-width="1.2"></rect>
+    <circle cx="-12" cy="-10" r="2" fill="#8b5cf6"></circle>
+    <circle cx="-12" cy="0" r="2" fill="#8b5cf6"></circle>
+    <circle cx="-12" cy="10" r="2" fill="#8b5cf6"></circle>
+    <circle cx="0" cy="-6" r="2" fill="#4cc9f0"></circle>
+    <circle cx="0" cy="6" r="2" fill="#4cc9f0"></circle>
+    <circle cx="12" cy="0" r="2" fill="#8b5cf6"></circle>
+    <line x1="-10" y1="-10" x2="-2" y2="-6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"
+    ></line>
+    <line x1="-10" y1="0" x2="-2" y2="-6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"
+    ></line>
+    <line x1="-10" y1="0" x2="-2" y2="6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"
+    ></line>
+    <line x1="-10" y1="10" x2="-2" y2="6" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"
+    ></line>
+    <line x1="2" y1="-6" x2="10" y2="0" stroke="#4cc9f0" stroke-width="0.5" opacity="0.6"
+    ></line>
+    <line x1="2" y1="6" x2="10" y2="0" stroke="#4cc9f0" stroke-width="0.5" opacity="0.6"
+    ></line>
+    <text
+      x="0"
+      y="42"
+      fill="#eef1f8"
+      font-family="JetBrains Mono, monospace"
+      font-size="9"
+      text-anchor="middle">LLM</text
+    >
+  </g>
+
+  <text
+    x="92"
+    y="108"
+    fill="#5a6178"
+    font-family="monospace"
+    font-size="12"
+    text-anchor="middle">→</text
+  >
+  <text
+    x="178"
+    y="108"
+    fill="#5a6178"
+    font-family="monospace"
+    font-size="12"
+    text-anchor="middle">→</text
+  >
+  <text
+    x="262"
+    y="108"
+    fill="#5a6178"
+    font-family="monospace"
+    font-size="12"
+    text-anchor="middle">→</text
+  >
+</svg>

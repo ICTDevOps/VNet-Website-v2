@@ -1,0 +1,150 @@
+---
+const links = [
+  { href: "#plateformes", label: "Plateformes" },
+  { href: "#approche", label: "Approche" },
+  { href: "#", label: "Cas clients" },
+  { href: "#", label: "Formations" },
+  { href: "#", label: "Journal" },
+];
+---
+
+<nav>
+  <a class="logo" href="/">
+    <span class="logo-mark">
+      <svg viewBox="0 0 30 30" fill="none">
+        <defs>
+          <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4cc9f0"></stop>
+            <stop offset="100%" stop-color="#8b5cf6"></stop>
+          </linearGradient>
+        </defs>
+        <circle cx="15" cy="6" r="2.5" fill="url(#lg1)"></circle>
+        <circle cx="6" cy="22" r="2.5" fill="url(#lg1)"></circle>
+        <circle cx="24" cy="22" r="2.5" fill="url(#lg1)"></circle>
+        <line
+          x1="15"
+          y1="6"
+          x2="6"
+          y2="22"
+          stroke="url(#lg1)"
+          stroke-width="1.2"
+          opacity="0.7"></line>
+        <line
+          x1="15"
+          y1="6"
+          x2="24"
+          y2="22"
+          stroke="url(#lg1)"
+          stroke-width="1.2"
+          opacity="0.7"></line>
+        <line
+          x1="6"
+          y1="22"
+          x2="24"
+          y2="22"
+          stroke="url(#lg1)"
+          stroke-width="1.2"
+          opacity="0.7"></line>
+      </svg>
+    </span>
+    <span class="logo-text">vnet<span>.</span>consult</span>
+  </a>
+  <ul>
+    {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+  </ul>
+  <div class="nav-right">
+    <span class="lang"><span class="active">FR</span> · EN</span>
+    <a href="#contact" class="nav-cta">Démarrer un projet →</a>
+  </div>
+</nav>
+
+<style>
+  nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 48px;
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(14px);
+    background: rgba(7, 9, 15, 0.75);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+  }
+  .logo-mark svg {
+    width: 100%;
+    height: 100%;
+  }
+  .logo-text span {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  nav ul {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  nav a {
+    color: var(--fg-dim);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover {
+    color: var(--fg);
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .lang {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--fg-faint);
+    letter-spacing: 0.05em;
+  }
+  .lang .active {
+    color: var(--fg);
+    font-weight: 500;
+  }
+  .nav-cta {
+    padding: 10px 18px;
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover {
+    opacity: 0.88;
+  }
+
+  @media (max-width: 900px) {
+    nav {
+      padding: 20px 24px;
+    }
+    nav ul {
+      display: none;
+    }
+  }
+</style>

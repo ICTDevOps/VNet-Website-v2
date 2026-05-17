@@ -1,0 +1,246 @@
+---
+import AzureHubSpoke from "./illustrations/AzureHubSpoke.astro";
+import M365Identity from "./illustrations/M365Identity.astro";
+import RAGPipeline from "./illustrations/RAGPipeline.astro";
+import LearningPath from "./illustrations/LearningPath.astro";
+
+const services = [
+  {
+    Illu: AzureHubSpoke,
+    tag: "01 / cloud-azure",
+    pill: "Hub-Spoke",
+    title: "Architecture Azure",
+    body: "Landing zones CAF, IaC en Terraform, gouvernance, FinOps. Une plateforme cloud qui supporte vos applications critiques sans surprises de facturation.",
+  },
+  {
+    Illu: M365Identity,
+    tag: "02 / microsoft-365",
+    pill: "Identity-first",
+    title: "Microsoft 365 & Entra",
+    body: "Déploiement Entra ID, Intune, Purview, Teams. Workplace moderne, identité conditionnelle, conformité documentée — et MDM qui marche vraiment.",
+  },
+  {
+    Illu: RAGPipeline,
+    tag: "03 / intelligence-artificielle",
+    pill: "RAG · Copilot",
+    title: "IA & Copilot",
+    body: "Azure OpenAI, Copilot Studio, RAG sur vos données. Cas d'usage cadrés, garde-fous, gouvernance — pas de pilote qui finit en démo PowerPoint.",
+  },
+  {
+    Illu: LearningPath,
+    tag: "04 / formations",
+    pill: "BE · LU · Remote",
+    title: "Formations & Séminaires",
+    body: "Programmes Azure, Terraform, M365 Admin, sécurité Entra. Sessions sur mesure pour vos équipes, en présentiel BE/LU ou à distance.",
+  },
+];
+---
+
+<section class="section" id="plateformes">
+  <div class="section-eyebrow">// Plateformes</div>
+  <h2 class="section-title">
+    Quatre domaines, une seule <span class="grad-text">discipline</span> :
+    faire que ça tienne.
+  </h2>
+  <p class="section-sub">
+    Chaque mission part d'un audit honnête de l'existant. Pas de migration cloud
+    parce que c'est tendance — uniquement quand ça crée de la valeur mesurable.
+  </p>
+
+  <div class="service-grid">
+    {
+      services.map(({ Illu, tag, pill, title, body }) => (
+        <div class="service-card">
+          <div class="illu-wrap">
+            <Illu />
+          </div>
+          <div class="service-body">
+            <div class="service-header">
+              <span class="service-tag">{tag}</span>
+              <span class="service-pill">{pill}</span>
+            </div>
+            <h3>{title}</h3>
+            <p>{body}</p>
+            <span class="service-arrow">En savoir plus →</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    position: relative;
+    z-index: 5;
+    max-width: 1280px;
+    margin: 140px auto 0;
+    padding: 0 48px;
+  }
+  .section-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 760px;
+    line-height: 1.05;
+  }
+  .section-sub {
+    color: var(--fg-dim);
+    font-size: 17px;
+    max-width: 620px;
+    margin-bottom: 56px;
+    line-height: 1.55;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .service-card {
+    border-radius: 18px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 0.3s,
+      background 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  .service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    padding: 1px;
+    background: var(--grad);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    background: var(--bg-3);
+  }
+  .service-card:hover::before {
+    opacity: 1;
+  }
+  .service-card:hover .service-arrow {
+    transform: translateX(4px);
+    color: var(--cyan);
+  }
+  .service-card:hover :global(.illu-pulse) {
+    animation-duration: 1.4s;
+  }
+  .service-card:hover :global(.illu-flow) {
+    animation-duration: 2s;
+  }
+
+  .illu-wrap {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(
+      180deg,
+      rgba(76, 201, 240, 0.04) 0%,
+      transparent 100%
+    );
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .illu-wrap :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .illu-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: center;
+    pointer-events: none;
+  }
+
+  .service-body {
+    padding: 28px 32px 32px;
+  }
+  .service-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .service-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--fg-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .service-pill {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(76, 201, 240, 0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(76, 201, 240, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+  .service-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .service-card p {
+    color: var(--fg-dim);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .service-arrow {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--fg-faint);
+    transition:
+      transform 0.2s,
+      color 0.2s;
+  }
+
+  @media (max-width: 900px) {
+    .section {
+      padding: 0 24px;
+    }
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+    .illu-wrap {
+      height: 180px;
+    }
+  }
+</style>

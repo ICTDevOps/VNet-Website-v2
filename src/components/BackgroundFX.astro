@@ -1,0 +1,15 @@
+---
+---
+
+<canvas id="bg-canvas"></canvas>
+<div class="glow"></div>
+<div class="glow-2"></div>
+
+<script>
+  import { mountNetworkBackground } from "../scripts/network-bg";
+
+  const canvas = document.getElementById("bg-canvas");
+  if (canvas instanceof HTMLCanvasElement) {
+    mountNetworkBackground(canvas);
+  }
+</script>

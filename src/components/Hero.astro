@@ -1,0 +1,130 @@
+---
+---
+
+<section class="hero">
+  <a href="#" class="pill">
+    <span class="pill-badge">NEW</span>
+    <span>Programme d'accélération IA pour PME — Q3 2026</span>
+    <span class="pill-arrow">→</span>
+  </a>
+  <h1>
+    L'infrastructure cloud,<br />
+    conçue par un <span class="grad-text">ingénieur</span>.
+  </h1>
+  <p class="lede">
+    Architecture Azure, migrations Microsoft 365 et intégration IA pour les PME
+    et grandes organisations. Pas de discours commercial — juste de l'ingénierie
+    qui tient en production.
+  </p>
+  <div class="cta-row">
+    <a href="#contact" class="btn-primary">Planifier un appel découverte →</a>
+    <a href="#" class="btn-ghost">Voir les références</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    z-index: 5;
+    padding: 110px 48px 120px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 6px 5px 14px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--fg-dim);
+    margin-bottom: 36px;
+    background: rgba(255, 255, 255, 0.025);
+    text-decoration: none;
+  }
+  .pill:hover {
+    border-color: var(--line-strong);
+  }
+  .pill-badge {
+    background: var(--grad);
+    padding: 3px 11px;
+    border-radius: 100px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--bg);
+    letter-spacing: 0.08em;
+  }
+  .pill-arrow {
+    color: var(--fg-faint);
+    font-family: "JetBrains Mono", monospace;
+  }
+  .hero h1 {
+    font-size: clamp(44px, 7vw, 96px);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin-bottom: 28px;
+    max-width: 1080px;
+  }
+  .hero h1 :global(.grad-text) {
+    background-size: 200% 200%;
+    animation: gradMove 10s ease infinite;
+  }
+  .hero p.lede {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--fg-dim);
+    max-width: 660px;
+    margin-bottom: 48px;
+  }
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 15px 28px;
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition:
+      transform 0.15s,
+      box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 40px var(--cyan-glow);
+  }
+  .btn-ghost {
+    padding: 15px 26px;
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .btn-ghost:hover {
+    border-color: var(--cyan);
+    background: rgba(76, 201, 240, 0.05);
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      padding: 70px 24px 80px;
+    }
+  }
+</style>

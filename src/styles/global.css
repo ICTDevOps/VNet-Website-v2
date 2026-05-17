@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07090f;
+  --color-bg-2: #0e1220;
+  --color-bg-3: #131829;
+  --color-fg: #eef1f8;
+  --color-fg-dim: #8a92a7;
+  --color-fg-faint: #5a6178;
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+  --color-cyan: #4cc9f0;
+  --color-violet: #8b5cf6;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --bg: #07090f;
+  --bg-2: #0e1220;
+  --bg-3: #131829;
+  --fg: #eef1f8;
+  --fg-dim: #8a92a7;
+  --fg-faint: #5a6178;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --cyan: #4cc9f0;
+  --violet: #8b5cf6;
+  --cyan-glow: rgba(76, 201, 240, 0.4);
+  --violet-glow: rgba(139, 92, 246, 0.35);
+  --grad: linear-gradient(135deg, #4cc9f0 0%, #8b5cf6 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes gradMove {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes pulse-fade {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+@keyframes orbit-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.illu-pulse {
+  animation: pulse-fade 2.4s ease-in-out infinite;
+}
+.illu-pulse.delayed-1 {
+  animation-delay: 0.4s;
+}
+.illu-pulse.delayed-2 {
+  animation-delay: 0.8s;
+}
+.illu-pulse.delayed-3 {
+  animation-delay: 1.2s;
+}
+.illu-flow {
+  stroke-dasharray: 4 6;
+  animation: dash-flow 4s linear infinite;
+}
+.illu-orbit {
+  animation: orbit-rotate 18s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.glow {
+  position: fixed;
+  width: 1000px;
+  height: 1000px;
+  top: -300px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 55%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.6;
+}
+.glow-2 {
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  top: 40%;
+  right: -250px;
+  background: radial-gradient(circle, var(--violet-glow) 0%, transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.5;
+}
